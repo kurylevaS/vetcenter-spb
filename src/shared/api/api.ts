@@ -16,7 +16,7 @@ export interface IResponse<D = any> {
 // acf_format=standard - возвращает ACF поля в стандартном формате
 // _embed - включает связанные объекты (embedded objects)
 // _fields=acf - возвращает только ACF поля (можно убрать если нужны все поля)
-const postfix = `&_fields=acf&_embed&acf_format=standard`;
+const postfix = `&_embed&acf_format=standard`;
 
 // ПРИМЕЧАНИЕ: Для получения ACF полей связанных объектов (service_types, doctors и т.д.)
 // необходимо настроить фильтры на стороне WordPress в functions.php или плагине.
@@ -44,4 +44,9 @@ export const API = {
   //doctors
   getDoctors: `/doctors?per_page=100${postfix}`,
   getDoctorById: (id: number) => `/doctors/${id}?${postfix.replace('&', '')}`,
+
+  //posts
+  getPosts: `/blog_post?per_page=100${postfix}`,
+  getPostById: (id: number) => `/blog_post/${id}?${postfix.replace('&', '')}`,
+  getPostBySlug: (slug: string) => `/blog_post?slug=${slug}${postfix}`,
 };

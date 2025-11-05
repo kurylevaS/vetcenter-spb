@@ -111,7 +111,7 @@ export interface ReviewsBlock {
 
 // Blog Block типы
 export interface BlogPost {
-  post: false | WordPressPost; // Может быть false или объект поста
+  post: false | number; // Может быть false или объект поста
 }
 
 export interface BlogBlock {

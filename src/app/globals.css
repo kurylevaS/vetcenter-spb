@@ -169,9 +169,57 @@ strong {
 }
 
 /* Swiper кастомные стили для блока "Команда" */
-.team-swiper .swiper-pagination {
+.team-swiper-pagination,
+.team-swiper-pagination-mobile {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.team-swiper-pagination {
+  justify-content: flex-start;
+}
+
+.team-swiper-pagination-mobile {
+  justify-content: flex-start;
+}
+
+.team-swiper .swiper-slide {
+  transition: opacity 0.8s ease-in-out !important;
+}
+
+/* Swiper кастомные стили для блока "Отзывы" */
+.reviews-gallery-swiper .swiper-pagination,
+.reviews-swiper .swiper-pagination {
   bottom: 2rem !important;
   display: flex;
   justify-content: center;
   gap: 0.8rem;
+}
+
+.reviews-gallery-swiper .swiper-slide,
+.reviews-swiper .swiper-slide {
+  transition: opacity 0.8s ease-in-out !important;
+}
+
+.team-swiper .swiper-pagination {
+    display: flex;
+    width: 100%;
+    padding: 4rem;
+}
+
+.reviews-swiper .swiper-pagination {
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  padding: 2rem;
+  padding-left: 4rem;
+}
+
+@media (min-width: 320px) {
+  .reviews-swiper .swiper-pagination {
+   display: flex;
+   justify-content: center;
+   width: 100%;
+   padding: 1rem;
+  }
 }
