@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
+html {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 10px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+select {
+  appearance: none;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  @apply text-black;
+  @apply bg-white;
+  min-width: 360px;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.2;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  @apply font-montserrat;
+}
+
+/* Отступ для фиксированного хедера */
+#app {
+  padding-top: 80px; /* Высота хедера на мобильных */
+}
+
+@media (min-width: 1024px) {
+  #app {
+    padding-top: 90px; /* Высота хедера на lg (h-32 = 128px) */
+  }
+}
+
+@media (min-width: 1280px) {
+  #app {
+    padding-top: 90px; /* Высота хедера на xl (h-32 = 128px) */
+  }
+}
+
+* {
+  box-sizing: border-box;
+
+  &:after {
+    box-sizing: border-box;
+  }
+
+  &:before {
+    box-sizing: border-box;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+address {
+  margin: 0;
+  padding: 0;
+  font-style: normal;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  margin: 0;
+  padding: 0;
+}
+
+b {
+  font-weight: 700;
+}
+
+strong {
+  font-weight: 700;
+}
+
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading='lazy'] {
+    clip-path: inset(0.06rem);
+  }
+}
+
+@keyframes spinSlow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loadingSpin {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(160%);
+  }
+  50% {
+    transform: translate(160%, 160%);
+  }
+  75% {
+    transform: translate(0, 160%);
+  }
+}
+
+/* Swiper кастомные стили для блока "О нас" */
+.about-us-swiper .swiper-pagination {
+  bottom: 2rem !important;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.about-us-swiper .swiper-pagination-bullet {
+  background-color: white !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
+}
+
+.about-us-swiper .swiper-pagination-bullet-active {
+  background-color: #82A81D !important;
+  opacity: 1 !important;
+}
+
+/* Swiper кастомные стили для блока "Команда" */
+.team-swiper .swiper-pagination {
+  bottom: 2rem !important;
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+}
