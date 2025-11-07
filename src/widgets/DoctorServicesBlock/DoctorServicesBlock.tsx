@@ -10,4 +10,3 @@ const DoctorServicesBlock = ({ services }: IDoctorServicesBlockProps) => {
 };
 
 export default DoctorServicesBlock;
-

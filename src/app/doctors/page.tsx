@@ -12,17 +12,17 @@ interface IDoctorsPageProps {
 export default async function DoctorsPage({ searchParams }: IDoctorsPageProps) {
   // Получаем все типы услуг для фильтров
   const serviceTypes = await getServiceTypes();
-  
+
   // Получаем врачей с параметрами поиска и фильтрации
-  const serviceTypeId = searchParams.service_type 
-    ? parseInt(searchParams.service_type) 
+  const serviceTypeId = searchParams.service_type
+    ? parseInt(searchParams.service_type)
     : undefined;
-  
+
   const doctors = await getDoctors({
     search: searchParams.search,
     serviceType: serviceTypeId,
   });
-  
+
   return (
     <>
       <main>
@@ -36,4 +36,3 @@ export default async function DoctorsPage({ searchParams }: IDoctorsPageProps) {
     </>
   );
 }
-

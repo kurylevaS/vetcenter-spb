@@ -36,16 +36,14 @@ const DoctorMainBlockClient = ({
         <div className="mb-6 md:mb-12">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors"
-          >
+            className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors">
             <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-[2.4rem] h-[2.4rem]"
-            >
+              className="w-[2.4rem] h-[2.4rem]">
               <path
                 d="M15 18L9 12L15 6"
                 stroke="currentColor"
@@ -62,7 +60,7 @@ const DoctorMainBlockClient = ({
         <div className="relative">
           {/* Зеленый фон под контентом */}
           <div className="absolute inset-x-0 bottom-0 bg-cGreen rounded-[2.4rem] md:rounded-[3.2rem] lg:rounded-[3.2rem] xl:rounded-[4rem] h-full lg:h-[90%] z-0" />
-          
+
           {/* Контент поверх фона */}
           <div className="relative z-10">
             {/* Мобильная и планшетная версия */}
@@ -116,8 +114,7 @@ const DoctorMainBlockClient = ({
                   rounded="full"
                   className="w-full"
                   isLoading={isLoading}
-                  disabled={isLoading}
-                >
+                  disabled={isLoading}>
                   Записаться
                 </Button>
               </div>
@@ -133,9 +130,7 @@ const DoctorMainBlockClient = ({
                 </h3>
 
                 {/* Специализация */}
-                <p className="text-[2rem] xl:text-[2.4rem]">
-                  {specialization}
-                </p>
+                <p className="text-[2rem] xl:text-[2.4rem]">{specialization}</p>
 
                 {/* Образование */}
                 {education && (
@@ -187,8 +182,7 @@ const DoctorMainBlockClient = ({
                     rounded="full"
                     className="w-2/3"
                     isLoading={isLoading}
-                    disabled={isLoading}
-                  >
+                    disabled={isLoading}>
                     Записаться
                   </Button>
                 </div>
@@ -202,4 +196,3 @@ const DoctorMainBlockClient = ({
 };
 
 export default DoctorMainBlockClient;
-

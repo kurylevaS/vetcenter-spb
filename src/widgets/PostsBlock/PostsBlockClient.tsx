@@ -31,8 +31,7 @@ const PostsBlockClient = ({ title, posts }: IPostsBlockClientProps) => {
             <Link
               key={index}
               href={`/blog/${post.slug}`}
-              className="group bg-white rounded-[2.4rem] md:rounded-[3.2rem] lg:rounded-[3.2rem] xl:rounded-[3.2rem] overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
-            >
+              className="group bg-white rounded-[2.4rem] md:rounded-[3.2rem] lg:rounded-[3.2rem] xl:rounded-[3.2rem] overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col">
               {/* Мобильная версия - горизонтальная компоновка */}
               <div className="md:hidden flex gap-4 p-8">
                 {/* Текстовая часть */}
@@ -42,7 +41,7 @@ const PostsBlockClient = ({ title, posts }: IPostsBlockClientProps) => {
                     <h3 className="text-[1.8rem] md:text-[2rem] font-bold text-cBlack mb-2 line-clamp-2">
                       {post.acf.title}
                     </h3>
-                    
+
                     {/* Описание */}
                     {post.acf.description && (
                       <p className="text-[1.4rem] md:text-[1.6rem] text-cBlack/70 leading-relaxed line-clamp-3 mb-3">
@@ -50,7 +49,7 @@ const PostsBlockClient = ({ title, posts }: IPostsBlockClientProps) => {
                       </p>
                     )}
                   </div>
-                  
+
                   {/* Ссылка "Читать далее" */}
                   <span className="text-cGreen underline text-[1.4rem] md:text-[1.6rem]">
                     Читать далее
@@ -110,12 +109,7 @@ const PostsBlockClient = ({ title, posts }: IPostsBlockClientProps) => {
 
         {/* Кнопка "Больше статьей" */}
         <div className="flex justify-center">
-          <Button
-            href="/blog"
-            theme="green"
-            size="2xl"
-            rounded="full"
-          >
+          <Button href="/blog" theme="green" size="2xl" rounded="full">
             Больше статьей
           </Button>
         </div>
@@ -125,4 +119,3 @@ const PostsBlockClient = ({ title, posts }: IPostsBlockClientProps) => {
 };
 
 export default PostsBlockClient;
-

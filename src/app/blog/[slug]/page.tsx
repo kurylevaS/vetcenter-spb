@@ -29,9 +29,11 @@ export default async function BlogPostPage({ params }: IBlogPostPageProps) {
       <main>
         <BlogPostMainBlock post={post} />
         <BlogPostContentBlock content={post.acf.content} />
-        <BlogPostRelatedBlock posts={allPosts || []} currentPostSlug={post.slug} />
+        <BlogPostRelatedBlock
+          posts={allPosts || []}
+          currentPostSlug={post.slug}
+        />
       </main>
     </>
   );
 }
-

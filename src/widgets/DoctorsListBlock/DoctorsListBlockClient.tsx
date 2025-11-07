@@ -22,7 +22,9 @@ const DoctorsListBlockClient = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(initialSearch || '');
-  const [selectedServiceType, setSelectedServiceType] = useState<number | undefined>(initialServiceType);
+  const [selectedServiceType, setSelectedServiceType] = useState<
+    number | undefined
+  >(initialServiceType);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   const filterMenuRef = useRef<HTMLDivElement>(null);
@@ -47,7 +49,10 @@ const DoctorsListBlockClient = ({
   // Закрытие меню фильтров при клике вне его
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (filterMenuRef.current && !filterMenuRef.current.contains(event.target as Node)) {
+      if (
+        filterMenuRef.current &&
+        !filterMenuRef.current.contains(event.target as Node)
+      ) {
         setIsFilterOpen(false);
       }
     };
@@ -95,7 +100,9 @@ const DoctorsListBlockClient = ({
   };
 
   // Получаем ID из service-type массива для фильтров
-  const getServiceTypeIdForFilter = (serviceType: ServiceType): number | undefined => {
+  const getServiceTypeIdForFilter = (
+    serviceType: ServiceType
+  ): number | undefined => {
     return serviceType['service-type'] && serviceType['service-type'].length > 0
       ? serviceType['service-type'][0]
       : undefined;
@@ -119,7 +126,11 @@ const DoctorsListBlockClient = ({
         const title = doctor.title.rendered?.toLowerCase() || '';
         const fullName = doctor.acf.full_name?.toLowerCase() || '';
         const specialization = doctor.acf.specialization?.toLowerCase() || '';
-        return title.includes(query) || fullName.includes(query) || specialization.includes(query);
+        return (
+          title.includes(query) ||
+          fullName.includes(query) ||
+          specialization.includes(query)
+        );
       });
     }
 
@@ -159,8 +170,7 @@ const DoctorsListBlockClient = ({
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40"
-                >
+                  className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40">
                   <circle
                     cx="11"
                     cy="11"
@@ -183,8 +193,7 @@ const DoctorsListBlockClient = ({
               <div className="relative" ref={filterMenuRef}>
                 <button
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="flex items-center gap-4 px-6 py-4 md:py-5 rounded-full bg-cGreen text-white text-[1.6rem] md:text-[1.8rem] font-medium hover:bg-cGreen/90 transition-colors"
-                >
+                  className="flex items-center gap-4 px-6 py-4 md:py-5 rounded-full bg-cGreen text-white text-[1.6rem] md:text-[1.8rem] font-medium hover:bg-cGreen/90 transition-colors">
                   <span>Фильтры</span>
                   <svg
                     width="24"
@@ -193,8 +202,7 @@ const DoctorsListBlockClient = ({
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
-                    className="w-[2.4rem] h-[2.4rem]"
-                  >
+                    className="w-[2.4rem] h-[2.4rem]">
                     <path d="M3 6h18M7 12h10M11 18h2" strokeLinecap="round" />
                   </svg>
                 </button>
@@ -208,24 +216,25 @@ const DoctorsListBlockClient = ({
                         !selectedServiceType
                           ? 'bg-cGreen text-white'
                           : 'bg-[#FAFAFA] text-cBlack hover:bg-cGreen/10'
-                      }`}
-                    >
+                      }`}>
                       Все врачи
                     </button>
                     {serviceTypes.map((serviceType) => {
-                      const serviceTypeIdForFilter = getServiceTypeIdForFilter(serviceType);
+                      const serviceTypeIdForFilter =
+                        getServiceTypeIdForFilter(serviceType);
                       if (!serviceTypeIdForFilter) return null;
-                      
+
                       return (
                         <button
                           key={serviceType.id}
-                          onClick={() => updateServiceTypeFilter(serviceTypeIdForFilter)}
+                          onClick={() =>
+                            updateServiceTypeFilter(serviceTypeIdForFilter)
+                          }
                           className={`w-full text-left px-4 py-3 rounded-[1.2rem] mb-2 text-[1.6rem] transition-colors ${
                             selectedServiceType === serviceTypeIdForFilter
                               ? 'bg-cGreen text-white'
                               : 'bg-[#FAFAFA] text-cBlack hover:bg-cGreen/10'
-                          }`}
-                        >
+                          }`}>
                           {serviceType.title.rendered}
                         </button>
                       );
@@ -257,4 +266,3 @@ const DoctorsListBlockClient = ({
 };
 
 export default DoctorsListBlockClient;
-

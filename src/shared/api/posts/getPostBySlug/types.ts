@@ -22,18 +22,20 @@ export interface PostACF {
   title: string;
   description: string;
   content: string; // HTML
-  blog_category: false | {
-    term_id: number;
-    name: string;
-    slug: string;
-    term_group: number;
-    term_taxonomy_id: number;
-    taxonomy: string;
-    description: string;
-    parent: number;
-    count: number;
-    filter: string;
-  };
+  blog_category:
+    | false
+    | {
+        term_id: number;
+        name: string;
+        slug: string;
+        term_group: number;
+        term_taxonomy_id: number;
+        taxonomy: string;
+        description: string;
+        parent: number;
+        count: number;
+        filter: string;
+      };
   author: string;
   image_min: string; // URL миниатюры для карточки
   image_full: string; // URL полного изображения
@@ -76,9 +78,8 @@ export interface PostBySlug {
   featured_media: number;
   template: string;
   meta: WordPressMeta;
-  'blog_category': number[]; // ID категорий блога на верхнем уровне
+  blog_category: number[]; // ID категорий блога на верхнем уровне
   class_list: string[];
   acf: PostACF;
   _links: WordPressLinks;
 }
-

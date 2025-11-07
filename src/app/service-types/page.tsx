@@ -7,22 +7,26 @@ interface IServiceTypesPageProps {
   };
 }
 
-export default async function ServiceTypesPage({ searchParams }: IServiceTypesPageProps) {
+export default async function ServiceTypesPage({
+  searchParams,
+}: IServiceTypesPageProps) {
   // Передаем параметр поиска в API
   const serviceTypes = await getServiceTypes({
     search: searchParams.search,
   });
-  
+
   if (!serviceTypes || serviceTypes.length === 0) {
     return null;
   }
-  
+
   return (
     <>
       <main>
-        <ServiceTypesListBlock serviceTypes={serviceTypes} initialSearch={searchParams.search} />
+        <ServiceTypesListBlock
+          serviceTypes={serviceTypes}
+          initialSearch={searchParams.search}
+        />
       </main>
     </>
   );
 }
-

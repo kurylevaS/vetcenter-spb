@@ -10,20 +10,19 @@ interface IParams {
 export const getPosts = async (params?: IParams): Promise<Post[]> => {
   try {
     const queryParams: Record<string, string> = {};
-    
+
     // Добавляем параметр поиска, если он передан
     if (params?.search) {
       queryParams.search = params.search;
     }
 
-    
     // Добавляем фильтр по категории блога, если он передан
     if (params?.blogCategory) {
       queryParams['blog_category'] = params.blogCategory.toString();
     }
 
     console.log('Query params:', queryParams);
-    
+
     const result = await axiosInstance.get<Post[]>(API.getPosts, {
       params: queryParams,
     });
@@ -35,4 +34,3 @@ export const getPosts = async (params?: IParams): Promise<Post[]> => {
     throw e;
   }
 };
-

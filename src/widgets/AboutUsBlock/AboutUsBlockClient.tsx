@@ -18,7 +18,12 @@ interface IAboutUsBlockClientProps {
   gallery: string[];
 }
 
-const AboutUsBlockClient = ({ title, description, button, gallery }: IAboutUsBlockClientProps) => {
+const AboutUsBlockClient = ({
+  title,
+  description,
+  button,
+  gallery,
+}: IAboutUsBlockClientProps) => {
   if (!gallery || gallery.length === 0) {
     return null;
   }
@@ -55,11 +60,12 @@ const AboutUsBlockClient = ({ title, description, button, gallery }: IAboutUsBlo
                 }}
                 pagination={{
                   clickable: true,
-                  bulletClass: 'swiper-pagination-bullet !bg-white !w-[1.2rem] !h-[1.2rem] !rounded-full',
-                  bulletActiveClass: 'swiper-pagination-bullet-active !w-[2.4rem]',
+                  bulletClass:
+                    'swiper-pagination-bullet !bg-white !w-[1.2rem] !h-[1.2rem] !rounded-full',
+                  bulletActiveClass:
+                    'swiper-pagination-bullet-active !w-[2.4rem]',
                 }}
-                className="about-us-swiper"
-              >
+                className="about-us-swiper">
                 {gallery.map((image, index) => (
                   <SwiperSlide key={index}>
                     <div className="relative aspect-[4/3] md:aspect-[3/2] lg:aspect-[4/3]">
@@ -81,10 +87,11 @@ const AboutUsBlockClient = ({ title, description, button, gallery }: IAboutUsBlo
             <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-cBlack">
               {title}
             </h2>
-            
+
             <div className="space-y-4 md:space-y-6">
               {description.split('\n\n').map((paragraph, index) => (
-                <p dangerouslySetInnerHTML={{ __html: paragraph }}
+                <p
+                  dangerouslySetInnerHTML={{ __html: paragraph }}
                   key={index}
                   className="text-2xl md:text-xl lg:text-2xl whitespace-pre-line text-cBlack/70 leading-relaxed"
                 />
@@ -98,8 +105,7 @@ const AboutUsBlockClient = ({ title, description, button, gallery }: IAboutUsBlo
                   theme="green"
                   size="2xl"
                   rounded="full"
-                  className="w-full md:w-auto"
-                >
+                  className="w-full md:w-auto">
                   {button.titile || button.link}
                 </Button>
               </div>
@@ -112,4 +118,3 @@ const AboutUsBlockClient = ({ title, description, button, gallery }: IAboutUsBlo
 };
 
 export default AboutUsBlockClient;
-

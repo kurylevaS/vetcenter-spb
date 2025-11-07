@@ -29,4 +29,3 @@ export interface AboutPageACF {
 export interface AboutPageInterface {
   acf: AboutPageACF;
 }
-

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination,EffectFade,Autoplay } from 'swiper/modules';
+import { Pagination, EffectFade, Autoplay } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import { Doctor } from '@/shared/api/doctors/getDoctors/types';
 import Button from '@/shared/ui/Button/Button';
@@ -41,11 +41,11 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
         <div className="relative">
           {/* Зеленый фон под контентом */}
           <div className="absolute inset-x-0 bottom-0 bg-cGreen rounded-[2.4rem] md:rounded-[3.2rem] lg:rounded-[3.2rem] xl:rounded-[4rem] h-full lg:h-[90%] z-0" />
-          
+
           {/* Контент поверх фона */}
           <div className="relative z-10 ">
             <Swiper
-              modules={[Pagination,EffectFade,Autoplay]}
+              modules={[Pagination, EffectFade, Autoplay]}
               spaceBetween={0}
               slidesPerView={1}
               loop={true}
@@ -60,9 +60,11 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
               }}
               pagination={{
                 clickable: true,
-                
-                bulletClass: 'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
-                bulletActiveClass: 'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
+
+                bulletClass:
+                  'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
+                bulletActiveClass:
+                  'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
               }}
               onSlideChange={(swiper: SwiperType) => {
                 setActiveIndex(swiper.realIndex);
@@ -70,8 +72,7 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
               onSwiper={(swiper: SwiperType) => {
                 setActiveIndex(swiper.realIndex);
               }}
-              className="team-swiper"
-            >
+              className="team-swiper">
               {doctors.map((doctor) => (
                 <SwiperSlide key={doctor.id} className="relative">
                   {/* Мобильная и планшетная версия */}
@@ -92,7 +93,9 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                         {/* Правая колонка - Факты */}
                         <div className="text-white grid grid-cols-2 md:grid-cols-3 mt-4 gap-4 md:gap-6">
                           {doctor.acf.facts?.map((factItem, idx) => (
-                            <div className="flex flex-col  gap-1 md:gap-2" key={idx}>
+                            <div
+                              className="flex flex-col  gap-1 md:gap-2"
+                              key={idx}>
                               <p className="text-[1.6rem] md:text-[1.8rem]">
                                 {factItem.fact.title}
                               </p>
@@ -143,7 +146,9 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                             Образование:
                           </p>
                           <div
-                            dangerouslySetInnerHTML={{ __html: doctor.acf.education }}
+                            dangerouslySetInnerHTML={{
+                              __html: doctor.acf.education,
+                            }}
                             className="text-[1.4rem] xl:text-[1.6rem] leading-relaxed"
                           />
                         </div>
@@ -166,7 +171,9 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                       {/* Факты (Опыт, Операций) */}
                       <div className="flex flex-col items-center gap-12 xl:gap-12">
                         {doctor.acf.facts?.map((factItem, idx) => (
-                          <div className="flex flex-col items-center gap-2" key={idx}>
+                          <div
+                            className="flex flex-col items-center gap-2"
+                            key={idx}>
                             <p className="text-[2.2rem] xl:text-[2.2rem]">
                               {factItem.fact.title}
                             </p>
@@ -186,7 +193,7 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                 </SwiperSlide>
               ))}
             </Swiper>
-            
+
             {/* Кнопка вне Swiper для мобильной версии */}
             <div className="lg:hidden px-6 md:px-8 pb-6 md:pb-8 relative z-[100] -mt-6 md:-mt-8">
               <Button
@@ -201,12 +208,11 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                 rounded="full"
                 className="w-full relative z-[100] cursor-pointer"
                 isLoading={isLoading}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 Записаться
               </Button>
             </div>
-            
+
             {/* Кнопка вне Swiper для десктопной версии */}
             <div className="hidden lg:flex absolute bottom-20 xl:bottom-20 right-0 w-1/3 z-[100] pointer-events-none justify-center items-center">
               <div className="pointer-events-auto">
@@ -214,7 +220,9 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                   onClick={() => {
                     const currentDoctor = doctors[activeIndex];
                     if (currentDoctor) {
-                      openFeedbackModal({ doctor: currentDoctor.acf.full_name });
+                      openFeedbackModal({
+                        doctor: currentDoctor.acf.full_name,
+                      });
                     }
                   }}
                   theme="white"
@@ -222,8 +230,7 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                   rounded="full"
                   className="w-full relative z-[100] cursor-pointer"
                   isLoading={isLoading}
-                  disabled={isLoading}
-                >
+                  disabled={isLoading}>
                   Записаться
                 </Button>
               </div>
@@ -236,4 +243,3 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
 };
 
 export default TeamBlockClient;
-

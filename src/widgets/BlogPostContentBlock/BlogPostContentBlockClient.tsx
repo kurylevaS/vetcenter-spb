@@ -4,7 +4,9 @@ interface IBlogPostContentBlockClientProps {
   content: string;
 }
 
-const BlogPostContentBlockClient = ({ content }: IBlogPostContentBlockClientProps) => {
+const BlogPostContentBlockClient = ({
+  content,
+}: IBlogPostContentBlockClientProps) => {
   return (
     <section className="w-full px-6 bg-white py-12 md:py-16 lg:py-20 xl:py-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
@@ -18,4 +20,3 @@ const BlogPostContentBlockClient = ({ content }: IBlogPostContentBlockClientProp
 };
 
 export default BlogPostContentBlockClient;
-

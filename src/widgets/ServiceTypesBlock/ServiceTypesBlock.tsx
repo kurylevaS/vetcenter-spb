@@ -13,7 +13,7 @@ const ServiceTypesBlock = async ({ serviceBlock }: IServiceTypesBlockProps) => {
 
   // Извлекаем ID из service_type объектов
   const serviceIds = serviceBlock.services
-    .map(service => service.service_type?.ID)
+    .map((service) => service.service_type?.ID)
     .filter((id): id is number => typeof id === 'number');
 
   if (serviceIds.length === 0) {
@@ -23,13 +23,16 @@ const ServiceTypesBlock = async ({ serviceBlock }: IServiceTypesBlockProps) => {
   // Получаем данные для каждого типа услуги через Promise.all
   // Используем Promise.allSettled для обработки ошибок отдельных запросов
   const serviceTypesResults = await Promise.allSettled(
-    serviceIds.map(id => getServiceTypeById(id))
+    serviceIds.map((id) => getServiceTypeById(id))
   );
 
   // Фильтруем успешные результаты
   const serviceTypesData = serviceTypesResults
-    .filter((result): result is PromiseFulfilledResult<any> => result.status === 'fulfilled')
-    .map(result => result.value);
+    .filter(
+      (result): result is PromiseFulfilledResult<any> =>
+        result.status === 'fulfilled'
+    )
+    .map((result) => result.value);
 
   if (serviceTypesData.length === 0) {
     return null;

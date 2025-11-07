@@ -14,4 +14,3 @@ const BlogPostContentBlock = ({ content }: IBlogPostContentBlockProps) => {
 };
 
 export default BlogPostContentBlock;
-

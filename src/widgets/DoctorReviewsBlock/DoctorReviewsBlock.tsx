@@ -14,4 +14,3 @@ const DoctorReviewsBlock = ({ reviews }: IDoctorReviewsBlockProps) => {
 };
 
 export default DoctorReviewsBlock;
-

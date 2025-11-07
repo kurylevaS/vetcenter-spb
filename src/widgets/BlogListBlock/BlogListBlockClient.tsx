@@ -23,7 +23,9 @@ const BlogListBlockClient = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(initialSearch || '');
-  const [selectedBlogCategory, setSelectedBlogCategory] = useState<number | undefined>(initialBlogCategory);
+  const [selectedBlogCategory, setSelectedBlogCategory] = useState<
+    number | undefined
+  >(initialBlogCategory);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Отладка входящих данных
@@ -88,10 +90,13 @@ const BlogListBlockClient = ({
   // Фильтрация постов по поисковому запросу и категории
   const filteredPosts = useMemo(() => {
     let filtered = posts;
-    
+
     // Отладка
     console.log('BlogListBlockClient - posts count:', posts.length);
-    console.log('BlogListBlockClient - selectedBlogCategory:', selectedBlogCategory);
+    console.log(
+      'BlogListBlockClient - selectedBlogCategory:',
+      selectedBlogCategory
+    );
     console.log('BlogListBlockClient - searchQuery:', searchQuery);
 
     // Фильтр по категории блога (если выбран)
@@ -111,7 +116,10 @@ const BlogListBlockClient = ({
               return cat === selectedBlogCategory;
             });
           }
-          if (typeof post.acf.blog_category === 'object' && post.acf.blog_category.id) {
+          if (
+            typeof post.acf.blog_category === 'object' &&
+            post.acf.blog_category.id
+          ) {
             return post.acf.blog_category.id === selectedBlogCategory;
           }
           if (typeof post.acf.blog_category === 'number') {
@@ -129,7 +137,11 @@ const BlogListBlockClient = ({
         const title = post.title?.rendered?.toLowerCase() || '';
         const acfTitle = post.acf?.title?.toLowerCase() || '';
         const description = post.acf?.description?.toLowerCase() || '';
-        return title.includes(query) || acfTitle.includes(query) || description.includes(query);
+        return (
+          title.includes(query) ||
+          acfTitle.includes(query) ||
+          description.includes(query)
+        );
       });
     }
 
@@ -170,8 +182,7 @@ const BlogListBlockClient = ({
                   viewBox="0 0 24 24"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40"
-                >
+                  className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40">
                   <circle
                     cx="11"
                     cy="11"
@@ -198,8 +209,7 @@ const BlogListBlockClient = ({
                     !selectedBlogCategory
                       ? 'bg-cGreen text-white border-2 border-cGreen'
                       : 'bg-white text-cBlack border-2 border-[#E5E5E5] hover:border-cGreen/30'
-                  }`}
-                >
+                  }`}>
                   Все
                 </button>
                 {blogCategories.map((category) => (
@@ -210,8 +220,7 @@ const BlogListBlockClient = ({
                       selectedBlogCategory === category.id
                         ? 'bg-cGreen text-white border-2 border-cGreen'
                         : 'bg-white text-cBlack border-2 border-[#E5E5E5] hover:border-cGreen/30'
-                    }`}
-                  >
+                    }`}>
                     {category.name}
                   </button>
                 ))}
@@ -227,8 +236,7 @@ const BlogListBlockClient = ({
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group bg-[#FAFAFA] rounded-[2.4rem] md:rounded-[3.2rem] overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-row gap-6 p-6 md:p-8"
-              >
+                className="group bg-[#FAFAFA] rounded-[2.4rem] md:rounded-[3.2rem] overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-row gap-6 p-6 md:p-8">
                 {/* Изображение */}
                 {post.acf.image_min && (
                   <div className="relative w-24 h-24 md:w-64 md:h-64 rounded-[1.2rem] md:rounded-[1.6rem] overflow-hidden flex-shrink-0">
@@ -276,4 +284,3 @@ const BlogListBlockClient = ({
 };
 
 export default BlogListBlockClient;
-

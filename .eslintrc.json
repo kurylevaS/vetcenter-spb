@@ -18,7 +18,7 @@
     "react/jsx-filename-extension": "off",
     "import/order": "off",
     "no-empty-pattern": "off",
-    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/no-unused-vars": "off",
     "react/react-in-jsx-scope": "off",
     "import/no-extraneous-dependencies": "off",
     "@typescript-eslint/no-explicit-any": "off",

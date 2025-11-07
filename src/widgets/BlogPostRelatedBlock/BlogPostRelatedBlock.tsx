@@ -6,7 +6,10 @@ interface IBlogPostRelatedBlockProps {
   currentPostSlug?: string;
 }
 
-const BlogPostRelatedBlock = ({ posts, currentPostSlug }: IBlogPostRelatedBlockProps) => {
+const BlogPostRelatedBlock = ({
+  posts,
+  currentPostSlug,
+}: IBlogPostRelatedBlockProps) => {
   if (!posts || posts.length === 0) {
     return null;
   }
@@ -24,4 +27,3 @@ const BlogPostRelatedBlock = ({ posts, currentPostSlug }: IBlogPostRelatedBlockP
 };
 
 export default BlogPostRelatedBlock;
-

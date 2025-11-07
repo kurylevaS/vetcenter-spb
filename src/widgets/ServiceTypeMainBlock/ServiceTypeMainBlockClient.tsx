@@ -14,7 +14,11 @@ interface IServiceTypeMainBlockClientProps {
   gallery: string[];
 }
 
-const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTypeMainBlockClientProps) => {
+const ServiceTypeMainBlockClient = ({
+  title,
+  description,
+  gallery,
+}: IServiceTypeMainBlockClientProps) => {
   const router = useRouter();
 
   const handleBack = () => {
@@ -28,16 +32,14 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
         <div className="mb-6 md:mb-12">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors"
-          >
+            className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors">
             <svg
               width="24"
               height="24"
               viewBox="0 0 24 24"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="w-[2.4rem] h-[2.4rem]"
-            >
+              className="w-[2.4rem] h-[2.4rem]">
               <path
                 d="M15 18L9 12L15 6"
                 stroke="currentColor"
@@ -46,7 +48,9 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-[2rem] md:text-[3.2rem] font-bold">{title}</span>
+            <span className="text-[2rem] md:text-[3.2rem] font-bold">
+              {title}
+            </span>
           </button>
         </div>
 
@@ -66,11 +70,12 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
                   }}
                   pagination={{
                     clickable: true,
-                    bulletClass: 'swiper-pagination-bullet !bg-white !w-[1.2rem] !h-[1.2rem] !rounded-full',
-                    bulletActiveClass: 'swiper-pagination-bullet-active !bg-cGreen !w-[2.4rem]',
+                    bulletClass:
+                      'swiper-pagination-bullet !bg-white !w-[1.2rem] !h-[1.2rem] !rounded-full',
+                    bulletActiveClass:
+                      'swiper-pagination-bullet-active !bg-cGreen !w-[2.4rem]',
                   }}
-                  className="service-type-main-swiper !h-full"
-                >
+                  className="service-type-main-swiper !h-full">
                   {gallery.map((image, index) => (
                     <SwiperSlide key={index} className="!h-full">
                       <div className="relative w-full h-full">
@@ -90,7 +95,7 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
 
           {/* Заголовок и описание */}
           <div className="space-y-6 md:space-y-8 w-full lg:space-y-10">
-            <div 
+            <div
               className="space-y-4 w-full md:space-y-6 text-2xl md:text-xl lg:text-2xl text-cBlack/70 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: description }}
             />
@@ -102,4 +107,3 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
 };
 
 export default ServiceTypeMainBlockClient;
-

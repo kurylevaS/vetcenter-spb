@@ -10,17 +10,17 @@ interface IParams {
 export const getDoctors = async (params?: IParams): Promise<Doctor[]> => {
   try {
     const queryParams: Record<string, string> = {};
-    
+
     // Добавляем параметр поиска, если он передан
     if (params?.search) {
       queryParams.search = params.search;
     }
-    
+
     // Добавляем фильтр по типу услуги, если он передан
     if (params?.serviceType) {
       queryParams['service-type'] = params.serviceType.toString();
     }
-    
+
     const result = await axiosInstance.get<Doctor[]>(API.getDoctors, {
       params: queryParams,
     });
@@ -30,4 +30,3 @@ export const getDoctors = async (params?: IParams): Promise<Doctor[]> => {
     throw e;
   }
 };
-

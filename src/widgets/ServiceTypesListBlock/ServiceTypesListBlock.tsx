@@ -6,13 +6,20 @@ interface IServiceTypesListBlockProps {
   initialSearch?: string;
 }
 
-const ServiceTypesListBlock = ({ serviceTypes, initialSearch }: IServiceTypesListBlockProps) => {
+const ServiceTypesListBlock = ({
+  serviceTypes,
+  initialSearch,
+}: IServiceTypesListBlockProps) => {
   if (!serviceTypes || serviceTypes.length === 0) {
     return null;
   }
 
-  return <ServiceTypesListBlockClient serviceTypes={serviceTypes} initialSearch={initialSearch} />;
+  return (
+    <ServiceTypesListBlockClient
+      serviceTypes={serviceTypes}
+      initialSearch={initialSearch}
+    />
+  );
 };
 
 export default ServiceTypesListBlock;
-

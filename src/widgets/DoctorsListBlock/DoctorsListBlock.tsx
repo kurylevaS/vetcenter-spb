@@ -26,4 +26,3 @@ const DoctorsListBlock = ({
 };
 
 export default DoctorsListBlock;
-

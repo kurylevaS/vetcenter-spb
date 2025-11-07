@@ -19,21 +19,22 @@ const feedbackSchema = z.object({
   phone: z
     .string()
     .min(1, 'Введите номер телефона')
-    .refine(
-      (value) => {
-        // Проверяем, что номер не содержит подчеркиваний (маска не заполнена)
-        if (value.includes('_')) {
-          return false;
-        }
-        return phoneValidation(value);
-      },
-      'Введите корректный номер телефона'
-    ),
+    .refine((value) => {
+      // Проверяем, что номер не содержит подчеркиваний (маска не заполнена)
+      if (value.includes('_')) {
+        return false;
+      }
+      return phoneValidation(value);
+    }, 'Введите корректный номер телефона'),
 });
 
 type FeedbackFormValues = z.infer<typeof feedbackSchema>;
 
-const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormProps) => {
+const FeedbackForm = ({
+  buttonText,
+  onSubmit,
+  className = '',
+}: IFeedbackFormProps) => {
   const formik = useFormik<FeedbackFormValues>({
     initialValues: {
       name: '',
@@ -46,10 +47,14 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
       }
 
       const result = feedbackSchema.safeParse(values);
-      
+
       if (!result.success) {
         const errors: Record<string, string> = {};
-        if (result.error && result.error.issues && Array.isArray(result.error.issues)) {
+        if (
+          result.error &&
+          result.error.issues &&
+          Array.isArray(result.error.issues)
+        ) {
           result.error.issues.forEach((err: z.ZodIssue) => {
             if (err.path && err.path.length > 0 && err.path[0]) {
               errors[err.path[0].toString()] = err.message;
@@ -58,7 +63,7 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
         }
         return errors;
       }
-      
+
       return {};
     },
     validateOnChange: false,
@@ -73,16 +78,20 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
             name: values.name,
             phone: values.phone,
           });
-          
+
           // Сбрасываем форму после успешной отправки
           resetForm();
-          
+
           // Уведомление об успешной отправке
-          alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+          alert(
+            'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.'
+          );
         }
       } catch (error) {
         console.error('Ошибка отправки формы:', error);
-        alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
+        alert(
+          'Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.'
+        );
       } finally {
         setSubmitting(false);
       }
@@ -90,7 +99,9 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className={`space-y-4 flex flex-col md:flex-row lg:bg-white p-4 rounded-full items-center justify-center items-start w-full md:space-y-6 ${className}`}>
+    <form
+      onSubmit={formik.handleSubmit}
+      className={`space-y-4 flex flex-col md:flex-row lg:bg-white p-4 rounded-full items-center justify-center items-start w-full md:space-y-6 ${className}`}>
       <div className="flex flex-col lg:flex-row gap-4 md:gap-6 items-start w-full lg:items-start">
         {/* Поле имени */}
         <div className="flex-1 w-full lg:w-auto">
@@ -154,8 +165,7 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
             size="3xl"
             rounded="full"
             disabled={formik.isSubmitting}
-            className="w-full lg:w-96 px-8 md:px-12 lg:px-16 bg-white !text-cGreen lg:!bg-cGreen lg:!text-white"
-          >
+            className="w-full lg:w-96 px-8 md:px-12 lg:px-16 bg-white !text-cGreen lg:!bg-cGreen lg:!text-white">
             {buttonText}
           </Button>
         </div>
@@ -165,4 +175,3 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
 };
 
 export default FeedbackForm;
-

@@ -4,15 +4,20 @@ import { ServiceTypeById } from './types';
 
 interface IParams {}
 
-export const getServiceTypeById = async (id: number, params?: IParams): Promise<ServiceTypeById> => {
+export const getServiceTypeById = async (
+  id: number,
+  params?: IParams
+): Promise<ServiceTypeById> => {
   try {
-    const result = await axiosInstance.get<ServiceTypeById>(API.getServiceTypeById(id), {
-      params,
-    });
+    const result = await axiosInstance.get<ServiceTypeById>(
+      API.getServiceTypeById(id),
+      {
+        params,
+      }
+    );
     return result.data;
   } catch (e: any) {
     console.log(e);
     throw e;
   }
 };
-

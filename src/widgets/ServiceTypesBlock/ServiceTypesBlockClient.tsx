@@ -56,4 +56,3 @@ const ServiceTypesBlockClient = ({
 };
 
 export default ServiceTypesBlockClient;
-

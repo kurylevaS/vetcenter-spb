@@ -1,13 +1,13 @@
-"use client"
-import React, { useState, useEffect } from 'react'
+'use client';
+import React, { useState, useEffect } from 'react';
 import { MainPageInterface } from '@/shared/api/pages/main/types';
 import Image from 'next/image';
 import Button from '@/shared/ui/Button/Button';
 import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
 
-
-
-const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block']) => {
+const MainBlockMainPage = ({
+  banner_slides,
+}: MainPageInterface['acf']['main_block']) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const openFeedbackModal = useOpenFeedbackModal();
   useEffect(() => {
@@ -34,12 +34,12 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
             <h1 className="text-[2.6rem] md:text-[3.2rem] font-bold text-cBlack leading-tight">
               {slideData.title_main}
             </h1>
-            
+
             {/* Подзаголовок "ПРИМОРСКИЙ" */}
             <h2 className="text-5xl md:text-[6.4rem] font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-cGreen to-[#C3FF00] leading-[90%] tracking-tight">
               {slideData.title_sub}
             </h2>
-            
+
             {/* Описание */}
             <p className="text-[1.7rem] md:text-[2.4rem] text-cBlack leading-tight">
               {slideData.description}
@@ -58,9 +58,11 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
                 aria-hidden="true"
               />
             </div>
-            
+
             {/* Изображение баннера */}
-            <div className="absolute right-0 md:left-1/2 md:-translate-x-1/2 bottom-0 h-full" style={{ aspectRatio: '460/617' }}>
+            <div
+              className="absolute right-0 md:left-1/2 md:-translate-x-1/2 bottom-0 h-full"
+              style={{ aspectRatio: '460/617' }}>
               <Image
                 src="/images/main_banner.png"
                 alt="Ветеринарный центр Приморский"
@@ -73,20 +75,19 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
           </div>
 
           {/* Кнопка внизу */}
-          
         </div>
         {slideData.button && (
-            <div className="w-full mt-8 lg:hidden">
-              <Button onClick={() => openFeedbackModal()}
-                theme="green"
-                size="3xl"
-                rounded="full"
-                className="w-full"
-              >
-                {slideData.button.title}
-              </Button>
-            </div>
-          )}
+          <div className="w-full mt-8 lg:hidden">
+            <Button
+              onClick={() => openFeedbackModal()}
+              theme="green"
+              size="3xl"
+              rounded="full"
+              className="w-full">
+              {slideData.button.title}
+            </Button>
+          </div>
+        )}
 
         {/* Десктопная версия - горизонтальная компоновка */}
         <div className="hidden lg:block relative h-[500px] xl:h-[630px]">
@@ -98,17 +99,17 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
                 <h1 className="text-5xl xl:text-8xl font-bold text-cBlack leading-tight">
                   {slideData.title_main}
                 </h1>
-                
+
                 {/* Подзаголовок "ПРИМОРСКИЙ" */}
                 <h2 className="text-6xl xl:text-9xl font-bold uppercase text-transparent bg-clip-text bg-gradient-to-r from-cGreen to-[#C3FF00] leading-[90%] tracking-tight">
                   {slideData.title_sub}
                 </h2>
-                
+
                 {/* Описание */}
                 <p className="text-2xl xl:text-4xl text-cBlackLight max-w-5xl leading-relaxed mt-2">
                   {slideData.description}
                 </p>
-                
+
                 {/* Кнопка */}
                 {slideData.button && (
                   <div className="pt-2 !mt-32">
@@ -117,8 +118,7 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
                       theme="green"
                       size="2xl"
                       rounded="full"
-                      className="w-1/3"
-                    >
+                      className="w-1/3">
                       {slideData.button.title}
                     </Button>
                   </div>
@@ -136,7 +136,7 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
                   width={605}
                   height={612}
                   className="w-full h-full max-w-[605px] max-h-[612px] opacity-77"
-                  style={{ 
+                  style={{
                     transform: 'translateX(15%) scale(1.1)',
                   }}
                   aria-hidden="true"
@@ -144,7 +144,7 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
               </div>
             </div>
           </div>
-          
+
           {/* Изображение баннера на десктопе */}
           <div className="absolute right-0 w-auto aspect-[460/617] rounded-3xl overflow-hidden h-full bottom-0">
             <Image
@@ -166,8 +166,8 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
                 key={index}
                 onClick={() => setActiveSlide(index)}
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  index === activeSlide 
-                    ? 'bg-bannerGreen w-8' 
+                  index === activeSlide
+                    ? 'bg-bannerGreen w-8'
                     : 'bg-gray-300 hover:bg-gray-400 w-2'
                 }`}
                 aria-label={`Перейти к слайду ${index + 1}`}

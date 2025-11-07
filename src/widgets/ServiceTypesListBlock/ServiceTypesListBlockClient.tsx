@@ -10,7 +10,10 @@ interface IServiceTypesListBlockClientProps {
   initialSearch?: string;
 }
 
-const ServiceTypesListBlockClient = ({ serviceTypes, initialSearch }: IServiceTypesListBlockClientProps) => {
+const ServiceTypesListBlockClient = ({
+  serviceTypes,
+  initialSearch,
+}: IServiceTypesListBlockClientProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(initialSearch || '');
@@ -97,8 +100,7 @@ const ServiceTypesListBlockClient = ({ serviceTypes, initialSearch }: IServiceTy
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40"
-              >
+                className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40">
                 <circle
                   cx="11"
                   cy="11"
@@ -123,7 +125,11 @@ const ServiceTypesListBlockClient = ({ serviceTypes, initialSearch }: IServiceTy
             filteredServiceTypes.map((serviceType) => (
               <ServiceCard
                 key={serviceType.id}
-                icon={typeof serviceType.acf.icon === 'string' ? serviceType.acf.icon : undefined}
+                icon={
+                  typeof serviceType.acf.icon === 'string'
+                    ? serviceType.acf.icon
+                    : undefined
+                }
                 name={serviceType.acf.name}
                 href={`/service-types/${serviceType.slug}`}
               />
@@ -142,4 +148,3 @@ const ServiceTypesListBlockClient = ({ serviceTypes, initialSearch }: IServiceTy
 };
 
 export default ServiceTypesListBlockClient;
-

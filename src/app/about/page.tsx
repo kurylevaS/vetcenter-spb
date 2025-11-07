@@ -7,11 +7,11 @@ export default async function AboutPage() {
   const pageData = await getAboutPage();
 
   console.log(pageData);
-  
+
   if (!pageData) {
     return null;
   }
-  
+
   return (
     <>
       <main>
@@ -22,4 +22,3 @@ export default async function AboutPage() {
     </>
   );
 }
-

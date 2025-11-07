@@ -7,9 +7,15 @@ interface IFeatureCardProps {
   className?: string;
 }
 
-const FeatureCard = ({ title, description, icon, className = '' }: IFeatureCardProps) => {
+const FeatureCard = ({
+  title,
+  description,
+  icon,
+  className = '',
+}: IFeatureCardProps) => {
   return (
-    <div className={`bg-[#FAFAFA] rounded-[2.4rem] md:rounded-[3.2rem] p-6 md:p-8 lg:p-10 overflow-hidden lg:!pb-0 flex flex-col lg:flex-col lg:items-center gap-6 md:gap-8 transition-all duration-300 hover:shadow-cGreen/50 hover:shadow-lg hover:-translate-y-1 ${className}`}>
+    <div
+      className={`bg-[#FAFAFA] rounded-[2.4rem] md:rounded-[3.2rem] p-6 md:p-8 lg:p-10 overflow-hidden lg:!pb-0 flex flex-col lg:flex-col lg:items-center gap-6 md:gap-8 transition-all duration-300 hover:shadow-cGreen/50 hover:shadow-lg hover:-translate-y-1 ${className}`}>
       {/* Текстовая часть */}
       <div className="flex-1">
         <h3 className="text-[2.4rem] md:text-[2.72rem] lg:text-[2.4rem] xl:text-[2.72rem] font-bold text-cBlack mb-3 md:mb-4">
@@ -35,4 +41,3 @@ const FeatureCard = ({ title, description, icon, className = '' }: IFeatureCardP
 };
 
 export default FeatureCard;
-

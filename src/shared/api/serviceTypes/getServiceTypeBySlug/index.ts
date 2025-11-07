@@ -4,15 +4,20 @@ import { ServiceTypeBySlug } from './types';
 
 interface IParams {}
 
-export const getServiceTypeBySlug = async (slug: string, params?: IParams): Promise<ServiceTypeBySlug> => {
+export const getServiceTypeBySlug = async (
+  slug: string,
+  params?: IParams
+): Promise<ServiceTypeBySlug> => {
   try {
-    const result = await axiosInstance.get<ServiceTypeBySlug[]>(API.getServiceTypeBySlug(slug), {
-      params,
-    });
+    const result = await axiosInstance.get<ServiceTypeBySlug[]>(
+      API.getServiceTypeBySlug(slug),
+      {
+        params,
+      }
+    );
     return result.data[0];
   } catch (e: any) {
     console.log(e);
     throw e;
   }
 };
-

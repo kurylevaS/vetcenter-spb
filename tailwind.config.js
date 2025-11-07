@@ -22,7 +22,7 @@ module.exports = {
         bannerTextGray: '#4A4A4A',
         bannerTextGrayLight: '#777777',
       },
-      
+
       animation: {
         'spin-slow': 'spinSlow 5s linear infinite',
         'loading-spin': 'loadingSpin 2s ease infinite',
@@ -32,10 +32,8 @@ module.exports = {
         n1: '-1s',
         'n0.5': '-0.5s',
       },
-     
     },
 
-    
     fontFamily: {
       base: 'var(--base-font)',
       secondary: 'var(--secondary-font)',

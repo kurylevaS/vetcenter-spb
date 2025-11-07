@@ -14,4 +14,3 @@ const ContactsInfoBlocks = ({ infoBlocks }: IContactsInfoBlocksProps) => {
 };
 
 export default ContactsInfoBlocks;
-

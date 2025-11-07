@@ -5,8 +5,14 @@ import InputMask from 'react-input-mask';
 import { z } from 'zod';
 import { useAppDispatch } from '@/shared/store/hooks/useAppDispatch';
 import { useAppSelector } from '@/shared/store/hooks/useAppSelector';
-import { feedbackModalActions, feedbackModalSelectors } from '@/shared/store/feedbackModalSlice';
-import { sendToTelegram, TelegramFormData } from '@/shared/api/telegram/sendToTelegram';
+import {
+  feedbackModalActions,
+  feedbackModalSelectors,
+} from '@/shared/store/feedbackModalSlice';
+import {
+  sendToTelegram,
+  TelegramFormData,
+} from '@/shared/api/telegram/sendToTelegram';
 import { phoneValidation } from '@/shared/utils/phoneValidation';
 import Button from '@/shared/ui/Button/Button';
 import { useEffect } from 'react';
@@ -26,15 +32,12 @@ const feedbackSchema = z.object({
   phone: z
     .string()
     .min(1, 'Введите номер телефона')
-    .refine(
-      (value) => {
-        if (value.includes('_')) {
-          return false;
-        }
-        return phoneValidation(value);
-      },
-      'Введите корректный номер телефона'
-    ),
+    .refine((value) => {
+      if (value.includes('_')) {
+        return false;
+      }
+      return phoneValidation(value);
+    }, 'Введите корректный номер телефона'),
   pet: z.string().optional(),
   comment: z.string().optional(),
 });
@@ -59,10 +62,14 @@ const FeedbackModal = () => {
       }
 
       const result = feedbackSchema.safeParse(values);
-      
+
       if (!result.success) {
         const errors: Record<string, string> = {};
-        if (result.error && result.error.issues && Array.isArray(result.error.issues)) {
+        if (
+          result.error &&
+          result.error.issues &&
+          Array.isArray(result.error.issues)
+        ) {
           result.error.issues.forEach((err: z.ZodIssue) => {
             if (err.path && err.path.length > 0 && err.path[0]) {
               errors[err.path[0].toString()] = err.message;
@@ -71,7 +78,7 @@ const FeedbackModal = () => {
         }
         return errors;
       }
-      
+
       return {};
     },
     validateOnChange: false,
@@ -85,20 +92,26 @@ const FeedbackModal = () => {
           ...(values.pet && { pet: values.pet }),
           ...(values.comment && { comment: values.comment }),
           ...(metadata?.doctor && { doctor: metadata.doctor }),
-          ...(metadata?.service_name && { service_name: metadata.service_name }),
+          ...(metadata?.service_name && {
+            service_name: metadata.service_name,
+          }),
         };
 
         await sendToTelegram(telegramData);
-        
+
         // Закрываем модальное окно и сбрасываем форму
         resetForm();
         dispatch(feedbackModalActions.closeModal());
-        
+
         // Можно добавить уведомление об успешной отправке
-        alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+        alert(
+          'Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.'
+        );
       } catch (error) {
         console.error('Ошибка отправки формы:', error);
-        alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
+        alert(
+          'Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.'
+        );
       } finally {
         setSubmitting(false);
         dispatch(feedbackModalActions.setLoading(false));
@@ -138,8 +151,7 @@ const FeedbackModal = () => {
   return (
     <div
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 md:p-6 lg:p-8"
-      onClick={handleOverlayClick}
-    >
+      onClick={handleOverlayClick}>
       <div className="bg-white rounded-[2.4rem] md:rounded-[3.2rem] w-full max-w-[60rem] max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="p-6 md:p-8 lg:p-12">
           {/* Заголовок */}
@@ -150,14 +162,12 @@ const FeedbackModal = () => {
             <button
               onClick={() => dispatch(feedbackModalActions.closeModal())}
               className="text-cBlack/70 hover:text-cBlack transition-colors p-2"
-              aria-label="Закрыть"
-            >
+              aria-label="Закрыть">
               <svg
                 className="w-8 h-8 md:w-10 md:h-10"
                 fill="none"
                 stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+                viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -169,13 +179,14 @@ const FeedbackModal = () => {
           </div>
 
           {/* Форма */}
-          <form onSubmit={formik.handleSubmit} className="space-y-4 md:space-y-6">
+          <form
+            onSubmit={formik.handleSubmit}
+            className="space-y-4 md:space-y-6">
             {/* ФИО */}
             <div>
               <label
                 htmlFor="modal-name"
-                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2"
-              >
+                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2">
                 ФИО <span className="text-red-500">*</span>
               </label>
               <input
@@ -210,8 +221,7 @@ const FeedbackModal = () => {
             <div>
               <label
                 htmlFor="modal-phone"
-                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2"
-              >
+                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2">
                 Номер телефона <span className="text-red-500">*</span>
               </label>
               <InputMask
@@ -248,8 +258,7 @@ const FeedbackModal = () => {
             <div>
               <label
                 htmlFor="modal-pet"
-                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2"
-              >
+                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2">
                 Ваш питомец
               </label>
               <select
@@ -267,8 +276,7 @@ const FeedbackModal = () => {
                   focus:outline-none focus:bg-white
                   appearance-none
                   bg-[url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234C4C4C' d='M6 9L1 4h10z'/%3E%3C/svg%3E")] bg-no-repeat bg-[right_1.5rem_center] bg-[length:1.2rem]
-                `}
-              >
+                `}>
                 {petOptions.map((option) => (
                   <option key={option.value} value={option.value}>
                     {option.label}
@@ -281,8 +289,7 @@ const FeedbackModal = () => {
             <div>
               <label
                 htmlFor="modal-comment"
-                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2"
-              >
+                className="block text-[1.4rem] md:text-[1.6rem] font-medium text-cBlack mb-2">
                 Комментарий
               </label>
               <textarea
@@ -314,8 +321,7 @@ const FeedbackModal = () => {
                 rounded="full"
                 disabled={formik.isSubmitting}
                 className="flex-1"
-                isLoading={formik.isSubmitting}
-              >
+                isLoading={formik.isSubmitting}>
                 Отправить заявку
               </Button>
               <Button
@@ -324,8 +330,7 @@ const FeedbackModal = () => {
                 size="2xl"
                 rounded="full"
                 onClick={() => dispatch(feedbackModalActions.closeModal())}
-                className="flex-1 border-2 border-cGreen/30"
-              >
+                className="flex-1 border-2 border-cGreen/30">
                 Отмена
               </Button>
             </div>
@@ -337,4 +342,3 @@ const FeedbackModal = () => {
 };
 
 export default FeedbackModal;
-

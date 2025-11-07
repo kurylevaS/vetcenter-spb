@@ -14,7 +14,7 @@ const PostsBlock = async ({ blogBlock }: IPostsBlockProps) => {
 
   // Извлекаем ID из post объектов (пропускаем false)
   const postIds = blogBlock.posts
-    .map(blogPost => blogPost.post)
+    .map((blogPost) => blogPost.post)
     .filter((id): id is number => typeof id === 'number');
 
   if (postIds.length === 0) {
@@ -23,24 +23,22 @@ const PostsBlock = async ({ blogBlock }: IPostsBlockProps) => {
 
   // Получаем данные для каждого поста через Promise.allSettled
   const postsResults = await Promise.allSettled(
-    postIds.map(id => getPostById(id))
+    postIds.map((id) => getPostById(id))
   );
 
   // Фильтруем успешные результаты
   const postsData = postsResults
-    .filter((result): result is PromiseFulfilledResult<PostById> => result.status === 'fulfilled')
-    .map(result => result.value);
+    .filter(
+      (result): result is PromiseFulfilledResult<PostById> =>
+        result.status === 'fulfilled'
+    )
+    .map((result) => result.value);
 
   if (postsData.length === 0) {
     return null;
   }
 
-  return (
-    <PostsBlockClient
-      title={blogBlock.title}
-      posts={postsData}
-    />
-  );
+  return <PostsBlockClient title={blogBlock.title} posts={postsData} />;
 };
 
 export default PostsBlock;

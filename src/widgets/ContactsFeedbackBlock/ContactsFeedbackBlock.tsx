@@ -5,7 +5,9 @@ interface IContactsFeedbackBlockProps {
   feedbackBlock: FeedbackBlock;
 }
 
-const ContactsFeedbackBlock = ({ feedbackBlock }: IContactsFeedbackBlockProps) => {
+const ContactsFeedbackBlock = ({
+  feedbackBlock,
+}: IContactsFeedbackBlockProps) => {
   if (!feedbackBlock) {
     return null;
   }
@@ -20,4 +22,3 @@ const ContactsFeedbackBlock = ({ feedbackBlock }: IContactsFeedbackBlockProps) =
 };
 
 export default ContactsFeedbackBlock;
-

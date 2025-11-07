@@ -12,17 +12,17 @@ interface IServicePageProps {
 
 export default async function ServicePage({ params }: IServicePageProps) {
   const { slug } = params;
-  
+
   // Получаем информацию об услуге
   const service = await getServiceBySlug(slug);
-  
+
   if (!service) {
     notFound();
   }
-  
+
   // Получаем данные главной страницы для формы обратной связи
   const pageData = await getMainPage();
-  
+
   return (
     <>
       <main>
@@ -34,4 +34,3 @@ export default async function ServicePage({ params }: IServicePageProps) {
     </>
   );
 }
-

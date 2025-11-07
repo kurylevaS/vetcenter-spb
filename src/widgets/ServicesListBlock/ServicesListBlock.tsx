@@ -9,15 +9,15 @@ interface IServicesListBlockProps {
   initialServiceType?: number;
 }
 
-const ServicesListBlock = ({ 
-  services, 
+const ServicesListBlock = ({
+  services,
   initialSearch,
   serviceTypes,
   initialServiceType,
 }: IServicesListBlockProps) => {
   return (
-    <ServicesListBlockClient 
-      services={services || []} 
+    <ServicesListBlockClient
+      services={services || []}
       initialSearch={initialSearch}
       serviceTypes={serviceTypes}
       initialServiceType={initialServiceType}
@@ -26,4 +26,3 @@ const ServicesListBlock = ({
 };
 
 export default ServicesListBlock;
-

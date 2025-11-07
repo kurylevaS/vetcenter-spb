@@ -19,11 +19,12 @@ export const sendToTelegram = async (data: TelegramFormData): Promise<void> => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.error || 'Ошибка отправки сообщения в Telegram');
+      throw new Error(
+        errorData.error || 'Ошибка отправки сообщения в Telegram'
+      );
     }
   } catch (error) {
     console.error('Ошибка отправки в Telegram:', error);
     throw error;
   }
 };
-

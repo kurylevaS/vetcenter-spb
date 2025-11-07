@@ -4,15 +4,19 @@ import { BlogCategory } from './types';
 
 interface IParams {}
 
-export const getBlogCategories = async (params?: IParams): Promise<BlogCategory[]> => {
+export const getBlogCategories = async (
+  params?: IParams
+): Promise<BlogCategory[]> => {
   try {
-    const result = await axiosInstance.get<BlogCategory[]>(API.getBlogCategories, {
-      params,
-    });
+    const result = await axiosInstance.get<BlogCategory[]>(
+      API.getBlogCategories,
+      {
+        params,
+      }
+    );
     return result.data;
   } catch (e: any) {
     console.log(e);
     throw e;
   }
 };
-

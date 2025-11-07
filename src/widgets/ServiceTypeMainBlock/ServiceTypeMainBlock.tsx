@@ -20,4 +20,3 @@ const ServiceTypeMainBlock = ({ serviceType }: IServiceTypeMainBlockProps) => {
 };
 
 export default ServiceTypeMainBlock;
-

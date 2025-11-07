@@ -9,25 +9,27 @@ interface IServicesPageProps {
   };
 }
 
-export default async function ServicesPage({ searchParams }: IServicesPageProps) {
+export default async function ServicesPage({
+  searchParams,
+}: IServicesPageProps) {
   // Получаем все типы услуг для фильтров
   const serviceTypes = await getServiceTypes();
-  
+
   // Получаем услуги с параметрами поиска и фильтрации
-  const serviceTypeId = searchParams.service_type 
-    ? parseInt(searchParams.service_type) 
+  const serviceTypeId = searchParams.service_type
+    ? parseInt(searchParams.service_type)
     : undefined;
-  
+
   const services = await getServices({
     search: searchParams.search,
     serviceType: serviceTypeId,
   });
-  
+
   return (
     <>
       <main>
-        <ServicesListBlock 
-          services={services || []} 
+        <ServicesListBlock
+          services={services || []}
           initialSearch={searchParams.search}
           serviceTypes={serviceTypes}
           initialServiceType={serviceTypeId}
@@ -36,4 +38,3 @@ export default async function ServicesPage({ searchParams }: IServicesPageProps)
     </>
   );
 }
-

@@ -13,4 +13,3 @@ export type {
   WordPressEmbedded,
   EmbeddedTerm,
 } from '@/shared/api/serviceTypes/getServiceByTaxonomy/types';
-

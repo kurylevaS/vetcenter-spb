@@ -60,7 +60,7 @@ export interface WordPressLinks {
 export interface Doctor {
   id: number;
   date: string;
-  "service-type": number[];
+  'service-type': number[];
   date_gmt: string;
   guid: WordPressGuid;
   modified: string;

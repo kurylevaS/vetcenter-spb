@@ -14,7 +14,11 @@ interface IReviewsBlockClientProps {
   reviews: Review[];
 }
 
-const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProps) => {
+const ReviewsBlockClient = ({
+  title,
+  gallery,
+  reviews,
+}: IReviewsBlockClientProps) => {
   if (!gallery || gallery.length === 0 || !reviews || reviews.length === 0) {
     return null;
   }
@@ -50,11 +54,12 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
                 }}
                 pagination={{
                   clickable: true,
-                  bulletClass: 'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
-                  bulletActiveClass: 'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
+                  bulletClass:
+                    'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
+                  bulletActiveClass:
+                    'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
                 }}
-                className="reviews-gallery-swiper"
-              >
+                className="reviews-gallery-swiper">
                 {gallery.map((image, index) => (
                   <SwiperSlide key={index}>
                     <div className="relative aspect-[3/4] md:aspect-[4/5] lg:aspect-[3/4]">
@@ -90,11 +95,12 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
                 }}
                 pagination={{
                   clickable: true,
-                  bulletClass: 'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
-                  bulletActiveClass: 'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
+                  bulletClass:
+                    'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
+                  bulletActiveClass:
+                    'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
                 }}
-                className="reviews-swiper"
-              >
+                className="reviews-swiper">
                 {reviews.map((reviewItem, index) => (
                   <SwiperSlide key={index}>
                     {/* Мобильная версия */}
@@ -112,7 +118,7 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
                             />
                           </div>
                         )}
-                        
+
                         {/* Имя автора */}
                         <h3 className="text-[2rem] md:text-[2.4rem] font-bold leading-tight">
                           {reviewItem.review.author}
@@ -121,7 +127,9 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
 
                       {/* Текст отзыва */}
                       <div
-                        dangerouslySetInnerHTML={{ __html: reviewItem.review.review_text }}
+                        dangerouslySetInnerHTML={{
+                          __html: reviewItem.review.review_text,
+                        }}
                         className="text-[1.6rem] md:text-[1.8rem] leading-relaxed opacity-90"
                       />
                     </div>
@@ -140,7 +148,7 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
                             />
                           </div>
                         )}
-                        
+
                         {/* Имя автора и текст отзыва */}
                         <div className="flex flex-col gap-4">
                           <div className="flex-1 pt-2">
@@ -149,7 +157,9 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
                             </h3>
                           </div>
                           <div
-                            dangerouslySetInnerHTML={{ __html: reviewItem.review.review_text }}
+                            dangerouslySetInnerHTML={{
+                              __html: reviewItem.review.review_text,
+                            }}
                             className="text-[1.6rem] xl:text-[1.6rem] leading-relaxed opacity-90"
                           />
                         </div>
@@ -167,4 +177,3 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
 };
 
 export default ReviewsBlockClient;
-

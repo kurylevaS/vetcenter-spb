@@ -10,11 +10,11 @@ import { FeedbackBlock } from '@/widgets/FeedbackBlock/FeedbackBlock';
 
 export default async function Home() {
   const pageData = await getMainPage();
-  
+
   if (!pageData || !pageData.main_block?.banner_slides) {
     return null;
   }
-  
+
   return (
     <>
       <main>

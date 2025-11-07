@@ -4,7 +4,10 @@ import { Doctor } from '../getDoctors/types';
 
 interface IParams {}
 
-export const getDoctorById = async (id: number, params?: IParams): Promise<Doctor> => {
+export const getDoctorById = async (
+  id: number,
+  params?: IParams
+): Promise<Doctor> => {
   try {
     const result = await axiosInstance.get<Doctor>(API.getDoctorById(id), {
       params,
@@ -15,4 +18,3 @@ export const getDoctorById = async (id: number, params?: IParams): Promise<Docto
     throw e;
   }
 };
-

@@ -22,7 +22,10 @@ const feedbackModalSlice = createSlice({
   name: 'feedbackModal',
   initialState,
   reducers: {
-    openModal: (state, action: PayloadAction<FeedbackModalMetadata | undefined>) => {
+    openModal: (
+      state,
+      action: PayloadAction<FeedbackModalMetadata | undefined>
+    ) => {
       state.isOpen = true;
       state.metadata = action.payload || null;
       state.isLoading = false;
@@ -47,4 +50,3 @@ export const feedbackModalSelectors = {
 };
 
 export default feedbackModalSlice.reducer;
-

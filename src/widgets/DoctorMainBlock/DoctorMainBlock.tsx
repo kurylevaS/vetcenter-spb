@@ -22,4 +22,3 @@ const DoctorMainBlock = ({ doctor }: IDoctorMainBlockProps) => {
 };
 
 export default DoctorMainBlock;
-

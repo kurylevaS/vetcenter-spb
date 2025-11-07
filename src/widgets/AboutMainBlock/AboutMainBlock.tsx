@@ -20,4 +20,3 @@ const AboutMainBlock = ({ mainBlock }: IAboutMainBlockProps) => {
 };
 
 export default AboutMainBlock;
-

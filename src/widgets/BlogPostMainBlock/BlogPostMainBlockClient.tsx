@@ -44,16 +44,14 @@ const BlogPostMainBlockClient = ({
           <div className="mb-6 md:mb-12">
             <button
               onClick={handleBack}
-              className="inline-flex items-center gap-8 text-white hover:text-white/80 transition-colors"
-            >
+              className="inline-flex items-center gap-8 text-white hover:text-white/80 transition-colors">
               <svg
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-[2.4rem] h-[2.4rem]"
-              >
+                className="w-[2.4rem] h-[2.4rem]">
                 <path
                   d="M15 18L9 12L15 6"
                   stroke="currentColor"
@@ -71,7 +69,11 @@ const BlogPostMainBlockClient = ({
               {title}
             </h1>
             {author && (
-              <p className="text-[1.8rem] text-center md:text-[2rem] font-light lg:text-[2.2rem] text-white/90"><span className='font-bold'>Автор:</span><br/>{author}</p>
+              <p className="text-[1.8rem] text-center md:text-[2rem] font-light lg:text-[2.2rem] text-white/90">
+                <span className="font-bold">Автор:</span>
+                <br />
+                {author}
+              </p>
             )}
           </div>
         </div>
@@ -81,4 +83,3 @@ const BlogPostMainBlockClient = ({
 };
 
 export default BlogPostMainBlockClient;
-

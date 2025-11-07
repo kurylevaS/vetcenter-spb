@@ -15,7 +15,10 @@ interface IFeaturesBlockClientProps {
   features: Feature[];
 }
 
-const FeaturesBlockClient = ({ title, features }: IFeaturesBlockClientProps) => {
+const FeaturesBlockClient = ({
+  title,
+  features,
+}: IFeaturesBlockClientProps) => {
   if (!features || features.length === 0) {
     return null;
   }
@@ -47,4 +50,3 @@ const FeaturesBlockClient = ({ title, features }: IFeaturesBlockClientProps) => 
 };
 
 export default FeaturesBlockClient;
-

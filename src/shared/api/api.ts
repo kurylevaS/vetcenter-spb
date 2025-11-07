@@ -21,9 +21,9 @@ const postfix = `&_embed&acf_format=standard`;
 // ПРИМЕЧАНИЕ: Для получения ACF полей связанных объектов (service_types, doctors и т.д.)
 // необходимо настроить фильтры на стороне WordPress в functions.php или плагине.
 // Стандартный WordPress REST API не всегда автоматически включает ACF поля связанных объектов.
-// 
+//
 // Пример кода для WordPress (добавить в functions.php):
-// 
+//
 // add_filter('rest_prepare_service_types', 'add_acf_to_rest_response', 10, 3);
 // add_filter('rest_prepare_doctor', 'add_acf_to_rest_response', 10, 3);
 // function add_acf_to_rest_response($response, $post, $request) {
@@ -38,13 +38,15 @@ export const API = {
   getAboutPage: `/pages?slug=about${postfix}`,
   getContactsPage: `/pages?slug=contacts${postfix}`,
 
-
   //service_types
   getServiceTypes: `/service_types?per_page=100&order=asc${postfix}`,
-  getServiceTypeById: (id: number) => `/service_types/${id}?${postfix.replace('&', '')}`,
-  getServiceTypeBySlug: (slug: string) => `/service_types?slug=${slug}${postfix}`,
+  getServiceTypeById: (id: number) =>
+    `/service_types/${id}?${postfix.replace('&', '')}`,
+  getServiceTypeBySlug: (slug: string) =>
+    `/service_types?slug=${slug}${postfix}`,
 
-  getServiceByServiceType: (serviceTypeId: number) => `/services?service-type=${serviceTypeId}&order=asc${postfix}`,
+  getServiceByServiceType: (serviceTypeId: number) =>
+    `/services?service-type=${serviceTypeId}&order=asc${postfix}`,
   getServiceBySlug: (slug: string) => `/services?slug=${slug}${postfix}`,
   getServices: `/services?per_page=100&order=asc${postfix}`,
 

@@ -20,4 +20,3 @@ const BlogPostMainBlock = ({ post }: IBlogPostMainBlockProps) => {
 };
 
 export default BlogPostMainBlock;
-

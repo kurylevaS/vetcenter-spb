@@ -21,5 +21,3 @@ const moduleExports = {
 module.exports = moduleExports;
 
 // Injected content via Sentry wizard below
-
-

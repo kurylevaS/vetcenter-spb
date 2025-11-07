@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -7,7 +7,7 @@ import Button from '@/shared/ui/Button/Button';
 import { Header } from '@/shared/api/getHeaderAndFooter/types';
 import Logo from '@public/images/logo.svg';
 import LogoFull from '@public/images/logo_full.svg';
-import  Map  from '@public/icons/map.svg';
+import Map from '@public/icons/map.svg';
 import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
 interface HeaderClientProps {
   header: Header;
@@ -25,7 +25,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY > 200) {
         setIsVisible(false);
       } else {
@@ -58,8 +58,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
           transition={{ duration: 0.3, ease: 'easeInOut' }}
           className={`fixed top-0 left-0 right-0 z-50 bg-white  transition-shadow duration-300 ${
             isScrolled ? 'shadow-md' : 'shadow-none'
-          }`}
-        >
+          }`}>
           {/* Десктопная версия */}
           <div className="hidden lg:block">
             <div className="max-w-[1440px] mx-auto px-4 lg:px-16">
@@ -75,8 +74,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                     <Link
                       key={item.href}
                       href={item.href}
-                      className="text-sm lg:text-[1.4rem] text-cBlack hover:text-cGreen transition-colors font-medium"
-                    >
+                      className="text-sm lg:text-[1.4rem] text-cBlack hover:text-cGreen transition-colors font-medium">
                       {item.label}
                     </Link>
                   ))}
@@ -87,8 +85,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                   <div className="flex flex-col gap-2 items-start">
                     <a
                       href={`tel:${header.phone.replace(/\s/g, '')}`}
-                      className="text-base lg:text-[1.6rem] lg:ml-2 font-medium text-cBlack hover:text-cGreen transition-colors"
-                    >
+                      className="text-base lg:text-[1.6rem] lg:ml-2 font-medium text-cBlack hover:text-cGreen transition-colors">
                       {header.phone}
                     </a>
                     <div className="flex items-start gap-1.5 mt-0.5">
@@ -103,8 +100,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                     theme="green"
                     size="xl"
                     rounded="full"
-                    className="whitespace-nowrap lg:!text-2xl lg:!py-5 lg:!px-12"
-                  >
+                    className="whitespace-nowrap lg:!text-2xl lg:!py-5 lg:!px-12">
                     {header.button.title}
                   </Button>
                 </div>
@@ -125,8 +121,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="flex flex-col gap-2 p-2"
-                  aria-label="Меню"
-                >
+                  aria-label="Меню">
                   <span
                     className={`block h-1 w-8 bg-cBlack transition-all duration-300 ${
                       isMobileMenuOpen ? 'rotate-45 translate-y-3' : ''
@@ -154,15 +149,13 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                   animate={{ opacity: 1, height: 'calc(100vh - 80px)' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3, ease: 'easeInOut' }}
-                  className="absolute top-full left-0 right-0 bg-white z-50 overflow-y-auto"
-                >
+                  className="absolute top-full left-0 right-0 bg-white z-50 overflow-y-auto">
                   <div className="px-10 py-12 flex flex-col min-h-full">
                     {/* Заголовок меню и кнопка закрытия */}
                     <div className="flex items-center justify-between mb-12">
                       <h2 className="text-4xl font-bold text-cBlack">Меню</h2>
-                      
                     </div>
-                    
+
                     {/* Пункты меню */}
                     <nav className="flex flex-col md:grid md:grid-cols-2 gap-4 md:gap-6 mb-12">
                       {menuItems.map((item) => (
@@ -170,29 +163,28 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                           key={item.href}
                           href={item.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="text-3xl text-cBlack hover:text-cGreen transition-colors font-medium py-2 md:py-3"
-                        >
+                          className="text-3xl text-cBlack hover:text-cGreen transition-colors font-medium py-2 md:py-3">
                           {item.label}
                         </Link>
                       ))}
                     </nav>
-                    
+
                     {/* Контакты и кнопка */}
                     <div className="pt-8 border-t mt-auto">
                       <a
                         href={`tel:${header.phone.replace(/\s/g, '')}`}
-                        className="text-3xl text-center font-bold text-cBlack block mb-6"
-                      >
+                        className="text-3xl text-center font-bold text-cBlack block mb-6">
                         {header.phone}
                       </a>
-                      <p className="text-2xl text-center text-cBlack/70 mb-8">{header.address}</p>
+                      <p className="text-2xl text-center text-cBlack/70 mb-8">
+                        {header.address}
+                      </p>
                       <Button
                         onClick={() => openFeedbackModal()}
                         theme="green"
                         size="2xl"
                         rounded="full"
-                        className="w-full"
-                      >
+                        className="w-full">
                         {header.button.title}
                       </Button>
                     </div>
@@ -208,4 +200,3 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
 };
 
 export default HeaderClient;
-

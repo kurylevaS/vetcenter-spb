@@ -9,7 +9,13 @@ const MapBlockClient = () => {
         <div className="flex relative items-center flex-col gap-6 md:gap-8">
           {/* Карта */}
           <div className="w-full h-[40rem] md:h-[50rem] lg:h-[60rem] rounded-[2.4rem] md:rounded-[3.2rem] overflow-hidden shadow-lg relative">
-            <div style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '100%' }}>
+            <div
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                width: '100%',
+                height: '100%',
+              }}>
               <a
                 href="https://yandex.ru/maps/org/primorskiy/1134485526/?utm_medium=mapframe&utm_source=maps"
                 style={{
@@ -19,8 +25,7 @@ const MapBlockClient = () => {
                   top: '0px',
                   left: '0px',
                   zIndex: 1,
-                }}
-              >
+                }}>
                 Приморский
               </a>
               <a
@@ -32,8 +37,7 @@ const MapBlockClient = () => {
                   top: '14px',
                   left: '0px',
                   zIndex: 1,
-                }}
-              >
+                }}>
                 Ветеринарная клиника в Санкт‑Петербурге
               </a>
               <a
@@ -45,8 +49,7 @@ const MapBlockClient = () => {
                   top: '28px',
                   left: '0px',
                   zIndex: 1,
-                }}
-              >
+                }}>
                 Ветеринарная аптека в Санкт‑Петербурге
               </a>
               <iframe
@@ -68,8 +71,7 @@ const MapBlockClient = () => {
               theme="green"
               size="2xl"
               rounded="full"
-              className="px-8 md:px-12 lg:px-16"
-            >
+              className="px-8 md:px-12 lg:px-16">
               Перейти на карты
             </Button>
           </div>
@@ -80,4 +82,3 @@ const MapBlockClient = () => {
 };
 
 export default MapBlockClient;
-

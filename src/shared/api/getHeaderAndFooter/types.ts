@@ -34,4 +34,5 @@ export interface HeaderAndFooterInterface {
 }
 
 // Основной интерфейс для ответа API (массив)
-export interface GetHeaderAndFooterResponse extends Array<HeaderAndFooterInterface> {}
+export interface GetHeaderAndFooterResponse
+  extends Array<HeaderAndFooterInterface> {}

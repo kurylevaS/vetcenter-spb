@@ -5,4 +5,3 @@ const MapBlock = () => {
 };
 
 export default MapBlock;
-

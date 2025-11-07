@@ -15,4 +15,3 @@ export interface PostById {
   id: number;
   slug: string;
 }
-

@@ -23,4 +23,3 @@ const ServiceMainBlock = ({ service }: IServiceMainBlockProps) => {
 };
 
 export default ServiceMainBlock;
-

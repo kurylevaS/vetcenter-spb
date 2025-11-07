@@ -13,21 +13,19 @@ export const getServiceByServiceType = async (
   try {
     const baseUrl = API.getServiceByServiceType(serviceTypeId);
     const queryParams: Record<string, string> = {};
-    
+
     // Добавляем параметр поиска, если он передан
     if (params?.search) {
       queryParams.search = params.search;
     }
-    
+
     const result = await axiosInstance.get<ServiceByTaxonomy>(baseUrl, {
       params: queryParams,
     });
-    
+
     return result.data;
-    
   } catch (e: any) {
     console.log(e);
     throw e;
   }
 };
-

@@ -8,7 +8,9 @@ interface IBlogPostRelatedBlockClientProps {
   posts: Post[];
 }
 
-const BlogPostRelatedBlockClient = ({ posts }: IBlogPostRelatedBlockClientProps) => {
+const BlogPostRelatedBlockClient = ({
+  posts,
+}: IBlogPostRelatedBlockClientProps) => {
   return (
     <section className="w-full px-6 bg-white py-12 md:py-16 lg:py-20 xl:py-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
@@ -25,8 +27,7 @@ const BlogPostRelatedBlockClient = ({ posts }: IBlogPostRelatedBlockClientProps)
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="group bg-[#FAFAFA] rounded-[2.4rem] md:rounded-[3.2rem] overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-row gap-6 p-6 md:p-8"
-            >
+              className="group bg-[#FAFAFA] rounded-[2.4rem] md:rounded-[3.2rem] overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-row gap-6 p-6 md:p-8">
               {/* Изображение */}
               {post.acf.image_min && (
                 <div className="relative w-24 h-24 md:w-64 md:h-64 rounded-[1.2rem] md:rounded-[1.6rem] overflow-hidden flex-shrink-0">
@@ -67,4 +68,3 @@ const BlogPostRelatedBlockClient = ({ posts }: IBlogPostRelatedBlockClientProps)
 };
 
 export default BlogPostRelatedBlockClient;
-

@@ -14,7 +14,7 @@ export const cvaButton = cva(
         green: 'bg-cGreen hover:bg-cGreen/80  text-white',
         white: 'bg-white hover:bg-white/80 text-cGreen',
       },
-      rounded:{
+      rounded: {
         full: 'rounded-full',
         none: 'rounded-none',
         small: 'rounded-sm',

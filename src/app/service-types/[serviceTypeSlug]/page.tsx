@@ -12,28 +12,36 @@ interface IServiceTypePageProps {
   };
 }
 
-export default async function ServiceTypePage({ params, searchParams }: IServiceTypePageProps) {
+export default async function ServiceTypePage({
+  params,
+  searchParams,
+}: IServiceTypePageProps) {
   const { serviceTypeSlug } = params;
-  
+
   // Получаем информацию о категории услуги
   const serviceType = await getServiceTypeBySlug(serviceTypeSlug);
-  
+
   if (!serviceType) {
     return null;
   }
-  
+
   // Получаем услуги этой категории с параметром поиска
-  const services = await getServiceByServiceType(serviceType['service-type'][0], {
-    search: searchParams.search,
-  });
-  
+  const services = await getServiceByServiceType(
+    serviceType['service-type'][0],
+    {
+      search: searchParams.search,
+    }
+  );
+
   return (
     <>
       <main>
         <ServiceTypeMainBlock serviceType={serviceType} />
-        <ServicesListBlock services={services} initialSearch={searchParams.search} />
+        <ServicesListBlock
+          services={services}
+          initialSearch={searchParams.search}
+        />
       </main>
     </>
   );
 }
-

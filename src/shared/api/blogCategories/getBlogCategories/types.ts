@@ -29,4 +29,3 @@ export interface BlogCategory {
   acf: any[];
   _links: WordPressLinks;
 }
-

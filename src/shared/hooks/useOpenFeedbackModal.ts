@@ -1,5 +1,7 @@
-
-import { feedbackModalActions, FeedbackModalMetadata } from '@/shared/store/feedbackModalSlice';
+import {
+  feedbackModalActions,
+  FeedbackModalMetadata,
+} from '@/shared/store/feedbackModalSlice';
 import { useAppDispatch } from '../store/hooks/useAppDispatch';
 
 export const useOpenFeedbackModal = () => {
@@ -9,4 +11,3 @@ export const useOpenFeedbackModal = () => {
     dispatch(feedbackModalActions.openModal(metadata));
   };
 };
-

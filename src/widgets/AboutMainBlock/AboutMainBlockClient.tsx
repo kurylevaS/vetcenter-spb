@@ -13,7 +13,11 @@ interface IAboutMainBlockClientProps {
   gallery: string[];
 }
 
-const AboutMainBlockClient = ({ title, content, gallery }: IAboutMainBlockClientProps) => {
+const AboutMainBlockClient = ({
+  title,
+  content,
+  gallery,
+}: IAboutMainBlockClientProps) => {
   if (!gallery || gallery.length === 0) {
     return null;
   }
@@ -36,11 +40,12 @@ const AboutMainBlockClient = ({ title, content, gallery }: IAboutMainBlockClient
                 }}
                 pagination={{
                   clickable: true,
-                  bulletClass: 'swiper-pagination-bullet !bg-white !w-[1.2rem] !h-[1.2rem] !rounded-full',
-                  bulletActiveClass: 'swiper-pagination-bullet-active !bg-cGreen !w-[2.4rem]',
+                  bulletClass:
+                    'swiper-pagination-bullet !bg-white !w-[1.2rem] !h-[1.2rem] !rounded-full',
+                  bulletActiveClass:
+                    'swiper-pagination-bullet-active !bg-cGreen !w-[2.4rem]',
                 }}
-                className="about-main-swiper !h-full"
-              >
+                className="about-main-swiper !h-full">
                 {gallery.map((image, index) => (
                   <SwiperSlide key={index} className="!h-full">
                     <div className="relative w-full h-full">
@@ -62,8 +67,8 @@ const AboutMainBlockClient = ({ title, content, gallery }: IAboutMainBlockClient
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-cBlack">
               {title}
             </h1>
-            
-            <div 
+
+            <div
               className="space-y-4 md:space-y-6 text-2xl md:text-xl lg:text-2xl text-cBlack/70 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: content }}
             />
@@ -75,4 +80,3 @@ const AboutMainBlockClient = ({ title, content, gallery }: IAboutMainBlockClient
 };
 
 export default AboutMainBlockClient;
-

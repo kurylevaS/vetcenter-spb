@@ -8,14 +8,14 @@ interface ITeamBlockProps {
 }
 
 const TeamBlock = async ({ teamBlock }: ITeamBlockProps) => {
-    console.log(teamBlock);
+  console.log(teamBlock);
   if (!teamBlock?.team) {
     return 'null';
   }
 
   // Извлекаем ID из doctor объектов
   const doctorIds = teamBlock.team
-    .map(teamMember => teamMember.doctor)
+    .map((teamMember) => teamMember.doctor)
     .filter((id): id is number => typeof id === 'number');
 
   if (doctorIds.length === 0) {
@@ -24,24 +24,22 @@ const TeamBlock = async ({ teamBlock }: ITeamBlockProps) => {
 
   // Получаем данные для каждого врача через Promise.allSettled
   const doctorsResults = await Promise.allSettled(
-    doctorIds.map(id => getDoctorById(id))
+    doctorIds.map((id) => getDoctorById(id))
   );
 
   // Фильтруем успешные результаты
   const doctorsData = doctorsResults
-    .filter((result): result is PromiseFulfilledResult<Doctor> => result.status === 'fulfilled')
-    .map(result => result.value);
+    .filter(
+      (result): result is PromiseFulfilledResult<Doctor> =>
+        result.status === 'fulfilled'
+    )
+    .map((result) => result.value);
 
   if (doctorsData.length === 0) {
     return null;
   }
 
-  return (
-    <TeamBlockClient
-      title={teamBlock.title}
-      doctors={doctorsData}
-    />
-  );
+  return <TeamBlockClient title={teamBlock.title} doctors={doctorsData} />;
 };
 
 export default TeamBlock;

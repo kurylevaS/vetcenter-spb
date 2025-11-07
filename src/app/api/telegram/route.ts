@@ -45,21 +45,26 @@ export async function POST(request: NextRequest) {
       message += `🔧 <b>Услуга:</b> ${data.service_name}\n`;
     }
 
-    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: 'HTML',
-      }),
-    });
+    const response = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: 'HTML',
+        }),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.description || 'Ошибка отправки сообщения в Telegram');
+      throw new Error(
+        errorData.description || 'Ошибка отправки сообщения в Telegram'
+      );
     }
 
     return NextResponse.json({ success: true });
@@ -71,4 +76,3 @@ export async function POST(request: NextRequest) {
     );
   }
 }
-

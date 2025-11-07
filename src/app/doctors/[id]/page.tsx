@@ -33,24 +33,27 @@ export default async function DoctorPage({ params }: IDoctorPageProps) {
   let services: Service[] = [];
   if (doctor.acf.services && Array.isArray(doctor.acf.services)) {
     // Извлекаем ID услуг из массива
-    const serviceIds = doctor.acf.services
-      .map((item: any) => {return item.service})
+    const serviceIds = doctor.acf.services.map((item: any) => {
+      return item.service;
+    });
 
     // Получаем все услуги и фильтруем по ID
     if (serviceIds.length > 0) {
       const allServices = await getServices();
-      services = allServices.filter((service) => serviceIds.includes(service.id));
+      services = allServices.filter((service) =>
+        serviceIds.includes(service.id)
+      );
     }
   }
 
   // Получаем отзывы из acf.reviews
-  const reviews = doctor.acf.reviews && Array.isArray(doctor.acf.reviews) 
-    ? doctor.acf.reviews 
-    : [];
+  const reviews =
+    doctor.acf.reviews && Array.isArray(doctor.acf.reviews)
+      ? doctor.acf.reviews
+      : [];
 
   // Получаем данные главной страницы для формы обратной связи
   const pageData = await getMainPage();
-
 
   return (
     <>
@@ -65,4 +68,3 @@ export default async function DoctorPage({ params }: IDoctorPageProps) {
     </>
   );
 }
-

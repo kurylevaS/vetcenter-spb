@@ -6,7 +6,9 @@ interface IContactsInfoBlocksClientProps {
   infoBlocks: InfoBlock[];
 }
 
-const ContactsInfoBlocksClient = ({ infoBlocks }: IContactsInfoBlocksClientProps) => {
+const ContactsInfoBlocksClient = ({
+  infoBlocks,
+}: IContactsInfoBlocksClientProps) => {
   return (
     <section className="w-full px-6 bg-white py-12 md:py-16 lg:py-20 xl:py-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
@@ -29,4 +31,3 @@ const ContactsInfoBlocksClient = ({ infoBlocks }: IContactsInfoBlocksClientProps
 };
 
 export default ContactsInfoBlocksClient;
-
