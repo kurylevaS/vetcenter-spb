@@ -35,11 +35,15 @@ export const API = {
   //pages
   getMainPage: `/pages?slug=main${postfix}`,
   getHeaderAndFooter: `/pages?slug=header-footer${postfix}`,
+  getAboutPage: `/pages?slug=about${postfix}`,
 
 
   //service_types
-  getServiceTypes: `/service_types?per_page=100${postfix}`,
+  getServiceTypes: `/service_types?per_page=100&prder=asc${postfix}`,
   getServiceTypeById: (id: number) => `/service_types/${id}?${postfix.replace('&', '')}`,
+  getServiceTypeBySlug: (slug: string) => `/service_types?slug=${slug}${postfix}`,
+
+  getServiceByServiceType: (serviceTypeId: number) => `/services?service-type=${serviceTypeId}&order=asc${postfix}`,
 
   //doctors
   getDoctors: `/doctors?per_page=100${postfix}`,

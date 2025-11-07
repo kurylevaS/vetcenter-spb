@@ -1,5 +1,17 @@
-import { FeaturesBlock as FeaturesBlockType } from '@/shared/api/pages/main/types';
 import FeaturesBlockClient from './FeaturesBlockClient';
+
+interface Feature {
+  feature: {
+    title: string;
+    description: string;
+    icon: string;
+  };
+}
+
+interface FeaturesBlockType {
+  title: string;
+  features: Feature[];
+}
 
 interface IFeaturesBlockProps {
   featuresBlock: FeaturesBlockType;

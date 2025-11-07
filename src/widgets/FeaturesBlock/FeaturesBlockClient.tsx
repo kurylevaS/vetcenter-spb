@@ -1,7 +1,14 @@
 'use client';
 
-import { Feature } from '@/shared/api/pages/main/types';
 import FeatureCard from '@/shared/ui/FeatureCard/FeatureCard';
+
+interface Feature {
+  feature: {
+    title: string;
+    description: string;
+    icon: string;
+  };
+}
 
 interface IFeaturesBlockClientProps {
   title: string;

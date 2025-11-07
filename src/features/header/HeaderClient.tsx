@@ -38,7 +38,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
   }, []);
 
   const menuItems = [
-    { label: 'Услуги', href: '/services' },
+    { label: 'Услуги', href: '/service-types' },
     { label: 'Врачи', href: '/doctors' },
     { label: 'О клинике', href: '/about' },
     { label: 'Статьи', href: '/articles' },
