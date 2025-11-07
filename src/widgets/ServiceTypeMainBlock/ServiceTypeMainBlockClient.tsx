@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 
@@ -15,13 +15,19 @@ interface IServiceTypeMainBlockClientProps {
 }
 
 const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTypeMainBlockClientProps) => {
+  const router = useRouter();
+
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
-    <section className="w-full px-6 bg-white py-12 md:py-16 lg:py-20 xl:py-24">
+    <section className="w-full px-6 bg-white pt-6  pb-12 md:pb-16 lg:pb-20 xl:pb-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Кнопка назад */}
         <div className="mb-6 md:mb-12">
-          <Link
-            href="/service-types"
+          <button
+            onClick={handleBack}
             className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors"
           >
             <svg
@@ -40,11 +46,11 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-[2rem] md:text-[4.2rem] font-bold">{title}</span>
-          </Link>
+            <span className="text-[2rem] md:text-[3.2rem] font-bold">{title}</span>
+          </button>
         </div>
 
-        <div className="grid grid-cols-2 px-16 w-full gap-8 md:gap-12 lg:gap-16 items-start">
+        <div className="lg:grid flex flex-col lg:grid-cols-2 md:px-16 w-full gap-8 md:gap-12 lg:gap-16 items-start">
           {/* Галерея */}
           {gallery && gallery.length > 0 && (
             <div className="relative w-full aspect-[4/3]">
@@ -83,9 +89,9 @@ const ServiceTypeMainBlockClient = ({ title, description, gallery }: IServiceTyp
           )}
 
           {/* Заголовок и описание */}
-          <div className="space-y-6 md:space-y-8 lg:space-y-10">
+          <div className="space-y-6 md:space-y-8 w-full lg:space-y-10">
             <div 
-              className="space-y-4 md:space-y-6 text-2xl md:text-xl lg:text-2xl text-cBlack/70 leading-relaxed"
+              className="space-y-4 w-full md:space-y-6 text-2xl md:text-xl lg:text-2xl text-cBlack/70 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: description }}
             />
           </div>

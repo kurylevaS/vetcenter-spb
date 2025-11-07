@@ -67,18 +67,18 @@ const ServiceTypesListBlockClient = ({ serviceTypes, initialSearch }: IServiceTy
   }
 
   return (
-    <section className="w-full px-6 bg-white py-12 md:py-16 lg:py-20 xl:py-24">
+    <section className="w-full px-6 bg-white pt-6 pb-12 md:pb-16 lg:pb-20 xl:pb-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Заголовок */}
         <div className="mb-8 md:mb-12 lg:mb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-cBlack">
+          <h1 className="text-4xl md:text-7xl lg:text-6xl xl:text-7xl font-bold text-cBlack">
             Услуги
           </h1>
         </div>
 
         {/* Строка поиска */}
         <div className="mb-8 md:mb-12">
-          <div className="relative max-w-full md:max-w-md lg:max-w-lg">
+          <div className="relative max-w-full md:max-w-full lg:max-w-2xl">
             <input
               type="text"
               value={searchQuery}
@@ -120,7 +120,7 @@ const ServiceTypesListBlockClient = ({ serviceTypes, initialSearch }: IServiceTy
         {/* Сетка категорий услуг */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
           {filteredServiceTypes.length > 0 ? (
-            filteredServiceTypes.reverse().map((serviceType) => (
+            filteredServiceTypes.map((serviceType) => (
               <ServiceCard
                 key={serviceType.id}
                 icon={typeof serviceType.acf.icon === 'string' ? serviceType.acf.icon : undefined}

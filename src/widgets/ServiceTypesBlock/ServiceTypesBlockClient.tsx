@@ -43,7 +43,7 @@ const ServiceTypesBlockClient = ({
               key={service.id}
               icon={service.acf.icon}
               name={service.acf.name}
-              href={`/services/${service.slug}`}
+              href={`/service-types/${service.slug}`}
             />
           ))}
 

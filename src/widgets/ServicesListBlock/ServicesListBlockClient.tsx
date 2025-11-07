@@ -2,24 +2,37 @@
 
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ServiceByTaxonomy } from '@/shared/api/serviceTypes/getServiceByTaxonomy/types';
+import { Service } from '@/shared/api/services/types';
+import { ServiceType } from '@/shared/api/serviceTypes/getServiceTypes/types';
 import ServiceCard from '@/shared/ui/ServiceCard/ServiceCard';
 
 interface IServicesListBlockClientProps {
-  services: ServiceByTaxonomy;
+  services: Service[];
   initialSearch?: string;
+  serviceTypes?: ServiceType[];
+  initialServiceType?: number;
 }
 
-const ServicesListBlockClient = ({ services, initialSearch }: IServicesListBlockClientProps) => {
+const ServicesListBlockClient = ({ 
+  services, 
+  initialSearch,
+  serviceTypes,
+  initialServiceType,
+}: IServicesListBlockClientProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(initialSearch || '');
+  const [selectedServiceType, setSelectedServiceType] = useState<number | undefined>(initialServiceType);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const filterMenuRef = useRef<HTMLDivElement>(null);
 
   // Обновляем состояние при изменении URL параметров
   useEffect(() => {
     const search = searchParams.get('search') || '';
+    const serviceType = searchParams.get('service_type');
     setSearchQuery(search);
+    setSelectedServiceType(serviceType ? parseInt(serviceType) : undefined);
   }, [searchParams]);
 
   // Cleanup для debounce таймера
@@ -30,6 +43,23 @@ const ServicesListBlockClient = ({ services, initialSearch }: IServicesListBlock
       }
     };
   }, []);
+
+  // Закрытие меню фильтров при клике вне его
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterMenuRef.current && !filterMenuRef.current.contains(event.target as Node)) {
+        setIsFilterOpen(false);
+      }
+    };
+
+    if (isFilterOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isFilterOpen]);
 
   // Функция для обновления URL с debounce
   const updateSearchParam = (value: string) => {
@@ -48,72 +78,161 @@ const ServicesListBlockClient = ({ services, initialSearch }: IServicesListBlock
     }, 300); // Debounce 300ms
   };
 
-  // Фильтрация услуг по поисковому запросу
+  // Функция для обновления фильтра по типу услуги
+  const updateServiceTypeFilter = (serviceTypeId: number | undefined) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (serviceTypeId) {
+      params.set('service_type', serviceTypeId.toString());
+    } else {
+      params.delete('service_type');
+    }
+    // Сохраняем поисковый запрос
+    if (searchQuery.trim()) {
+      params.set('search', searchQuery);
+    }
+    router.push(`?${params.toString()}`, { scroll: false });
+    setIsFilterOpen(false);
+  };
+
+  // Получаем ID из service-type массива для фильтров
+  const getServiceTypeIdForFilter = (serviceType: ServiceType): number | undefined => {
+    return serviceType['service-type'] && serviceType['service-type'].length > 0
+      ? serviceType['service-type'][0]
+      : undefined;
+  };
+
+  // Фильтрация услуг по поисковому запросу и типу услуги
   const filteredServices = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return services;
+    let filtered = services;
+
+    // Фильтр по типу услуги (если выбран)
+    if (selectedServiceType) {
+      filtered = filtered.filter((service) => 
+        service['service-type']?.includes(selectedServiceType)
+      );
     }
 
-    const query = searchQuery.toLowerCase().trim();
-    return services.filter((service) => {
-      const name = service.acf.name?.toLowerCase() || '';
-      const description = service.acf.description?.toLowerCase() || '';
-      return name.includes(query) || description.includes(query);
-    });
-  }, [services, searchQuery]);
+    // Фильтр по поисковому запросу
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase().trim();
+      filtered = filtered.filter((service) => {
+        const name = service.acf.name?.toLowerCase() || '';
+        const description = service.acf.description?.toLowerCase() || '';
+        return name.includes(query) || description.includes(query);
+      });
+    }
 
-  if (!services || services.length === 0) {
-    return null;
-  }
+    return filtered;
+  }, [services, searchQuery, selectedServiceType]);
 
   return (
     <section className="w-full px-6 bg-white py-12 md:py-16 lg:py-20 xl:py-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Заголовок */}
         <div className="mb-8 md:mb-12 lg:mb-16">
-          <h2 className="text-4xl md:text-5xl text-center lg:text-6xl xl:text-7xl font-bold text-cBlack">
-            Список услуг
+          <h2 className="text-4xl md:text-5xl text-left text-center lg:text-6xl xl:text-7xl font-bold text-cBlack">
+            Услуги
           </h2>
         </div>
 
-        {/* Строка поиска */}
+        {/* Строка поиска и фильтров */}
         <div className="mb-8 md:mb-12">
-          <div className="relative max-w-full md:max-w-md lg:max-w-2xl ">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => {
-                const value = e.target.value;
-                setSearchQuery(value);
-                updateSearchParam(value);
-              }}
-              placeholder="Введите ваш запрос"
-              className="w-full px-6 py-4 md:py-5 pr-14 md:pr-16 rounded-full text-[1.6rem] md:text-[1.8rem] bg-[#FAFAFA] placeholder:text-cBlack/40 border-2 border-transparent focus:border-cGreen/30 focus:outline-none transition-colors"
-            />
-            <div className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 pointer-events-none">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40"
-              >
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="8"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <path
-                  d="m21 21-4.35-4.35"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center">
+            {/* Поиск */}
+            <div className="relative  w-full md:w-auto flex-1 max-w-full md:max-w-full lg:max-w-2xl">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setSearchQuery(value);
+                  updateSearchParam(value);
+                }}
+                placeholder="Введите ваш запрос"
+                className="w-full px-6 py-4 md:py-5 pr-14 md:pr-16 rounded-full text-[1.6rem] md:text-[1.8rem] bg-[#FAFAFA] placeholder:text-cBlack/40 border-2 border-transparent focus:border-cGreen/30 focus:outline-none transition-colors"
+              />
+              <div className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-[2.4rem] h-[2.4rem] md:w-[2.8rem] md:h-[2.8rem] text-cBlack/40"
+                >
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="8"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="m21 21-4.35-4.35"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
             </div>
+
+            {/* Кнопка фильтров */}
+            {serviceTypes && serviceTypes.length > 0 && (
+              <div className="relative" ref={filterMenuRef}>
+                <button
+                  onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  className="flex items-center gap-4 px-6 py-4 md:py-5 rounded-full bg-cGreen text-white text-[1.6rem] md:text-[1.8rem] font-medium hover:bg-cGreen/90 transition-colors"
+                >
+                  <span>Фильтры</span>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="w-[2.4rem] h-[2.4rem]"
+                  >
+                    <path d="M3 6h18M7 12h10M11 18h2" strokeLinecap="round" />
+                  </svg>
+                </button>
+
+                {/* Выпадающее меню фильтров */}
+                {isFilterOpen && (
+                  <div className="absolute top-full left-0 mt-2 bg-white rounded-[1.6rem] shadow-lg p-4 min-w-[200px] z-10 border-2 border-cGreen/20">
+                    <button
+                      onClick={() => updateServiceTypeFilter(undefined)}
+                      className={`w-full text-left px-4 py-3 rounded-[1.2rem] mb-2 text-[1.6rem] transition-colors ${
+                        !selectedServiceType
+                          ? 'bg-cGreen text-white'
+                          : 'bg-[#FAFAFA] text-cBlack hover:bg-cGreen/10'
+                      }`}
+                    >
+                      Все услуги
+                    </button>
+                    {serviceTypes.map((serviceType) => {
+                      const serviceTypeIdForFilter = getServiceTypeIdForFilter(serviceType);
+                      if (!serviceTypeIdForFilter) return null;
+                      
+                      return (
+                        <button
+                          key={serviceType.id}
+                          onClick={() => updateServiceTypeFilter(serviceTypeIdForFilter)}
+                          className={`w-full text-left px-4 py-3 rounded-[1.2rem] mb-2 text-[1.6rem] transition-colors ${
+                            selectedServiceType === serviceTypeIdForFilter
+                              ? 'bg-cGreen text-white'
+                              : 'bg-[#FAFAFA] text-cBlack hover:bg-cGreen/10'
+                          }`}
+                        >
+                          {serviceType.title.rendered}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -131,7 +250,7 @@ const ServicesListBlockClient = ({ services, initialSearch }: IServicesListBlock
           ) : (
             <div className="col-span-full text-center py-12">
               <p className="text-[1.8rem] md:text-[2rem] text-cBlack/60">
-                По вашему запросу ничего не найдено
+                По заданным запросам ничего не найдено
               </p>
             </div>
           )}

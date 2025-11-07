@@ -41,7 +41,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
     { label: 'Услуги', href: '/service-types' },
     { label: 'Врачи', href: '/doctors' },
     { label: 'О клинике', href: '/about' },
-    { label: 'Статьи', href: '/articles' },
+    { label: 'Блог', href: '/blog' },
     { label: 'Контакты', href: '/contacts' },
   ];
 

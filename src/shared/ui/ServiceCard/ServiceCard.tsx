@@ -29,7 +29,7 @@ const ServiceCard = ({ icon, name, href, className = '' }: IServiceCardProps) =>
         )}
         
         {/* Название услуги */}
-        <h3 className="text-[2.4rem] md:text-[2.72rem] font-semibold text-cBlack group-hover:text-cGreen transition-colors">
+        <h3 className="text-[1.8rem] md:text-[2.4rem] font-semibold text-cBlack group-hover:text-cGreen transition-colors">
           {name}
         </h3>
       </div>

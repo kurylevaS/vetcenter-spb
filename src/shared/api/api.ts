@@ -36,14 +36,17 @@ export const API = {
   getMainPage: `/pages?slug=main${postfix}`,
   getHeaderAndFooter: `/pages?slug=header-footer${postfix}`,
   getAboutPage: `/pages?slug=about${postfix}`,
+  getContactsPage: `/pages?slug=contacts${postfix}`,
 
 
   //service_types
-  getServiceTypes: `/service_types?per_page=100&prder=asc${postfix}`,
+  getServiceTypes: `/service_types?per_page=100&order=asc${postfix}`,
   getServiceTypeById: (id: number) => `/service_types/${id}?${postfix.replace('&', '')}`,
   getServiceTypeBySlug: (slug: string) => `/service_types?slug=${slug}${postfix}`,
 
   getServiceByServiceType: (serviceTypeId: number) => `/services?service-type=${serviceTypeId}&order=asc${postfix}`,
+  getServiceBySlug: (slug: string) => `/services?slug=${slug}${postfix}`,
+  getServices: `/services?per_page=100&order=asc${postfix}`,
 
   //doctors
   getDoctors: `/doctors?per_page=100${postfix}`,
@@ -53,4 +56,7 @@ export const API = {
   getPosts: `/blog_post?per_page=100${postfix}`,
   getPostById: (id: number) => `/blog_post/${id}?${postfix.replace('&', '')}`,
   getPostBySlug: (slug: string) => `/blog_post?slug=${slug}${postfix}`,
+
+  //blog_categories
+  getBlogCategories: `/blog_category?per_page=100${postfix}`,
 };

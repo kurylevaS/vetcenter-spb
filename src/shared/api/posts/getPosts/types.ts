@@ -63,6 +63,7 @@ export interface Post {
   featured_media: number;
   template: string;
   meta: WordPressMeta;
+  'blog_category': number[]; // ID категорий блога на верхнем уровне
   class_list: string[];
   acf: PostACF;
   _links: WordPressLinks;
