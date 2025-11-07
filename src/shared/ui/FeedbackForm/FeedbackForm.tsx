@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 import { z } from 'zod';
 import Button from '@/shared/ui/Button/Button';
 import { phoneValidation } from '@/shared/utils/phoneValidation';
+import { sendToTelegram } from '@/shared/api/telegram/sendToTelegram';
 
 interface IFeedbackFormProps {
   buttonText: string;
@@ -62,12 +63,28 @@ const FeedbackForm = ({ buttonText, onSubmit, className = '' }: IFeedbackFormPro
     },
     validateOnChange: false,
     validateOnBlur: true,
-    onSubmit: async (values) => {
-      if (onSubmit) {
-        onSubmit(values);
-      } else {
-        // Коллбек формы по умолчанию
-        console.log('Form submitted:', values);
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        if (onSubmit) {
+          onSubmit(values);
+        } else {
+          // Отправляем в Telegram
+          await sendToTelegram({
+            name: values.name,
+            phone: values.phone,
+          });
+          
+          // Сбрасываем форму после успешной отправки
+          resetForm();
+          
+          // Уведомление об успешной отправке
+          alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+        }
+      } catch (error) {
+        console.error('Ошибка отправки формы:', error);
+        alert('Произошла ошибка при отправке формы. Пожалуйста, попробуйте позже.');
+      } finally {
+        setSubmitting(false);
       }
     },
   });

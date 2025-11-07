@@ -8,6 +8,7 @@ import { Header } from '@/shared/api/getHeaderAndFooter/types';
 import Logo from '@public/images/logo.svg';
 import LogoFull from '@public/images/logo_full.svg';
 import  Map  from '@public/icons/map.svg';
+import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
 interface HeaderClientProps {
   header: Header;
 }
@@ -16,6 +17,8 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const openFeedbackModal = useOpenFeedbackModal();
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -96,7 +99,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                     </div>
                   </div>
                   <Button
-                    href="#appointment"
+                    onClick={() => openFeedbackModal()}
                     theme="green"
                     size="xl"
                     rounded="full"
@@ -184,7 +187,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
                       </a>
                       <p className="text-2xl text-center text-cBlack/70 mb-8">{header.address}</p>
                       <Button
-                        href="#appointment"
+                        onClick={() => openFeedbackModal()}
                         theme="green"
                         size="2xl"
                         rounded="full"

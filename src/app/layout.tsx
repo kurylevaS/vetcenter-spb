@@ -6,6 +6,7 @@ import SmoothScroll from '@/shared/ui/SmoothScroll/SmoothScroll';
 import { RemResizeScript } from '@/features/rem-resize';
 import Header from '@/features/header/Header';
 import { Footer } from '@/widgets/Footer/Footer';
+import FeedbackModal from '@/shared/ui/FeedbackModal/FeedbackModal';
 
 // import 'swiper/css';
 // import 'swiper/css/navigation';
@@ -53,6 +54,7 @@ export default function RootLayout({ children, ...rest }: RootLayoutProps) {
             <Header />
             <div id="app">{children}</div>
             <Footer />
+            <FeedbackModal />
           </SmoothScroll>
         </ReduxProvider>
       </body>

@@ -3,6 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { DoctorFact } from '@/shared/api/doctors/getDoctors/types';
 import Button from '@/shared/ui/Button/Button';
+import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
+import { useAppSelector } from '@/shared/store/hooks/useAppSelector';
 
 interface IDoctorMainBlockClientProps {
   fullName: string;
@@ -20,6 +22,8 @@ const DoctorMainBlockClient = ({
   image,
 }: IDoctorMainBlockClientProps) => {
   const router = useRouter();
+  const openFeedbackModal = useOpenFeedbackModal();
+  const isLoading = useAppSelector((state) => state.feedbackModal.isLoading);
 
   const handleBack = () => {
     router.back();
@@ -106,11 +110,13 @@ const DoctorMainBlockClient = ({
               {/* Кнопка за блоком */}
               <div className="px-6 md:px-8 pb-6 md:pb-8">
                 <Button
-                  href="#feedback"
+                  onClick={() => openFeedbackModal({ doctor: fullName })}
                   theme="white"
                   size="2xl"
                   rounded="full"
                   className="w-full"
+                  isLoading={isLoading}
+                  disabled={isLoading}
                 >
                   Записаться
                 </Button>
@@ -175,11 +181,13 @@ const DoctorMainBlockClient = ({
                 {/* Кнопка */}
                 <div className="pt-4 w-full flex justify-center items-center absolute bottom-20 xl:pt-6">
                   <Button
-                    href="#feedback"
+                    onClick={() => openFeedbackModal({ doctor: fullName })}
                     theme="white"
                     size="2xl"
                     rounded="full"
                     className="w-2/3"
+                    isLoading={isLoading}
+                    disabled={isLoading}
                   >
                     Записаться
                   </Button>

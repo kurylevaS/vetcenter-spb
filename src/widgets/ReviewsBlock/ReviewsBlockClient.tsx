@@ -73,7 +73,7 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
 
           {/* Правая часть - Блок с отзывами */}
           <div className="relative md:col-span-1 lg:col-span-2">
-            <div className="bg-cGreen rounded-[2.4rem] md:rounded-[3.2rem] lg:rounded-[3.2rem] xl:rounded-[4rem] p-6 md:p-8 lg:p-8 xl:p-12 relative overflow-hidden">
+            <div className="bg-cGreen rounded-[2.4rem] md:rounded-[3.2rem] lg:rounded-[3.2rem] xl:rounded-[4rem] p-6 md:p-8 lg:p-8 xl:p-12 relative overflow-hidden pb-16 md:pb-20 lg:pb-24">
               <Swiper
                 modules={[Pagination, EffectFade, Autoplay]}
                 spaceBetween={0}
@@ -98,7 +98,7 @@ const ReviewsBlockClient = ({ title, gallery, reviews }: IReviewsBlockClientProp
                 {reviews.map((reviewItem, index) => (
                   <SwiperSlide key={index}>
                     {/* Мобильная версия */}
-                    <div className="lg:hidden text-white pb-28">
+                    <div className="lg:hidden text-white pb-12 md:pb-16">
                       {/* Автор и изображение */}
                       <div className="flex items-center xl:flex-row flex-col gap-4 md:gap-6 mb-6 md:mb-8">
                         {/* Изображение автора */}

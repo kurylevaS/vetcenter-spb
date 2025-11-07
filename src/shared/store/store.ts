@@ -6,11 +6,13 @@ import {
 } from '@reduxjs/toolkit';
 import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 import exampleName from './exampleSlice';
+import feedbackModal from './feedbackModalSlice';
 import { baseApi } from './api/baseApi';
 import { rtkQueryErrorLogger } from './api/middlewares/errorHandling';
 
 const combinedReducer = combineReducers({
   exampleName,
+  feedbackModal,
   [baseApi.reducerPath]: baseApi.reducer, // for RTK query
 });
 

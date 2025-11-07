@@ -27,7 +27,7 @@ const PostsBlockClient = ({ title, posts }: IPostsBlockClientProps) => {
 
         {/* Сетка постов */}
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-10 mb-8 md:mb-12 lg:mb-16">
-          {[...posts, ...posts, ...posts].map((post, index) => (
+          {posts.map((post, index) => (
             <Link
               key={index}
               href={`/blog/${post.slug}`}

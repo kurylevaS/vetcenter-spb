@@ -187,6 +187,13 @@ strong {
   transition: opacity 0.8s ease-in-out !important;
 }
 
+.team-swiper .swiper-slide button,
+.team-swiper .swiper-slide a {
+  position: relative;
+  z-index: 100 !important;
+  pointer-events: auto !important;
+}
+
 /* Swiper кастомные стили для блока "Отзывы" */
 .reviews-gallery-swiper .swiper-pagination,
 .reviews-swiper .swiper-pagination {
@@ -213,6 +220,9 @@ strong {
   width: 100%;
   padding: 2rem;
   padding-left: 4rem;
+  bottom: 1.6rem !important;
+  position: absolute;
+  z-index: 10;
 }
 
 @media (min-width: 320px) {
@@ -221,6 +231,15 @@ strong {
    justify-content: center;
    width: 100%;
    padding: 1rem;
+   bottom: 1.6rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .reviews-swiper .swiper-pagination {
+    justify-content: start;
+    padding-left: 4rem;
+    bottom: 2rem !important;
   }
 }
 

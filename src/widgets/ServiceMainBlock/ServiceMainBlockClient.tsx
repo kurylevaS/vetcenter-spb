@@ -9,6 +9,8 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import Button from '@/shared/ui/Button/Button';
 import ReviewModal from '@/shared/ui/ReviewModal/ReviewModal';
 import { ServiceReview } from '@/shared/api/services/types';
+import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
+import { useAppSelector } from '@/shared/store/hooks/useAppSelector';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -84,6 +86,8 @@ const ServiceMainBlockClient = ({
   reviews,
 }: IServiceMainBlockClientProps) => {
   const router = useRouter();
+  const openFeedbackModal = useOpenFeedbackModal();
+  const isLoading = useAppSelector((state) => state.feedbackModal.isLoading);
   const [selectedReview, setSelectedReview] = useState<{
     author: string;
     content: string;
@@ -215,10 +219,13 @@ const ServiceMainBlockClient = ({
             {/* Кнопка записи */}
             <div className="pt-4">
               <Button
+                onClick={() => openFeedbackModal({ service_name: title })}
                 theme="green"
                 size="3xl"
                 rounded="full"
                 className="w-full md:w-auto px-8 md:px-12 lg:px-16"
+                isLoading={isLoading}
+                disabled={isLoading}
               >
                 Записаться на услугу
               </Button>

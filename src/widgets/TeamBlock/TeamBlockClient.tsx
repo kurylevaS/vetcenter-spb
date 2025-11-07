@@ -1,10 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination,EffectFade,Autoplay } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import { Doctor } from '@/shared/api/doctors/getDoctors/types';
 import Button from '@/shared/ui/Button/Button';
+import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
+import { useAppSelector } from '@/shared/store/hooks/useAppSelector';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -15,6 +19,10 @@ interface ITeamBlockClientProps {
 }
 
 const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
+  const openFeedbackModal = useOpenFeedbackModal();
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isLoading = useAppSelector((state) => state.feedbackModal.isLoading);
+
   if (!doctors || doctors.length === 0) {
     return null;
   }
@@ -56,12 +64,18 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                 bulletClass: 'swiper-pagination-bullet !bg-white/90 !w-[0.8rem] !h-[0.8rem] lg:!w-[1rem] lg:!h-[1rem] !rounded-full',
                 bulletActiveClass: 'swiper-pagination-bullet-active !bg-white !w-[2rem] lg:!w-[2.4rem]',
               }}
+              onSlideChange={(swiper: SwiperType) => {
+                setActiveIndex(swiper.realIndex);
+              }}
+              onSwiper={(swiper: SwiperType) => {
+                setActiveIndex(swiper.realIndex);
+              }}
               className="team-swiper"
             >
               {doctors.map((doctor) => (
-                <SwiperSlide key={doctor.id}>
+                <SwiperSlide key={doctor.id} className="relative">
                   {/* Мобильная и планшетная версия */}
-                  <div className="lg:hidden">
+                  <div className="lg:hidden relative">
                     <div className="">
                       {/* Верхняя часть - Имя/Специализация слева, Факты справа */}
                       <div className="grid grid-cols-1 gap-4 md:gap-6 mb-6 md:mb-8 p-6 md:p-8">
@@ -102,22 +116,14 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                       </div>
                     </div>
 
-                    {/* Кнопка за блоком */}
-                    <div className="px-6 md:px-8 pb-6 md:pb-8">
-                      <Button
-                        href="#"
-                        theme="white"
-                        size="2xl"
-                        rounded="full"
-                        className="w-full"
-                      >
-                        Записаться
-                      </Button>
+                    {/* Кнопка за блоком - скрыта, используется кнопка вне Swiper */}
+                    <div className="px-6 md:px-8 pb-6 md:pb-8 relative z-[100] pointer-events-none">
+                      <div className="w-full h-16"></div>
                     </div>
                   </div>
 
                   {/* Десктопная версия */}
-                  <div className="hidden lg:grid grid-cols-3 gap-8 xl:gap-12 items-center">
+                  <div className="hidden lg:grid grid-cols-3 gap-8 xl:gap-12 items-center relative z-10">
                     {/* Левая колонка - Имя, Специализация, Образование */}
                     <div className="text-white p-8 px-12 space-y-6 xl:space-y-8">
                       {/* Имя */}
@@ -171,23 +177,57 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
                         ))}
                       </div>
 
-                      {/* Кнопка */}
-                      <div className="pt-4 w-full flex justify-center items-center absolute bottom-20 xl:pt-6">
-                        <Button
-                          href="#"
-                          theme="white"
-                          size="2xl"
-                          rounded="full"
-                          className="w-2/3"
-                        >
-                          Записаться
-                        </Button>
+                      {/* Кнопка - скрыта, используется кнопка вне Swiper */}
+                      <div className="pt-4 w-full flex justify-center items-center absolute bottom-20 xl:pt-6 z-[100] pointer-events-none">
+                        <div className="w-2/3 h-16"></div>
                       </div>
                     </div>
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
+            
+            {/* Кнопка вне Swiper для мобильной версии */}
+            <div className="lg:hidden px-6 md:px-8 pb-6 md:pb-8 relative z-[100] -mt-6 md:-mt-8">
+              <Button
+                onClick={() => {
+                  const currentDoctor = doctors[activeIndex];
+                  if (currentDoctor) {
+                    openFeedbackModal({ doctor: currentDoctor.acf.full_name });
+                  }
+                }}
+                theme="white"
+                size="2xl"
+                rounded="full"
+                className="w-full relative z-[100] cursor-pointer"
+                isLoading={isLoading}
+                disabled={isLoading}
+              >
+                Записаться
+              </Button>
+            </div>
+            
+            {/* Кнопка вне Swiper для десктопной версии */}
+            <div className="hidden lg:flex absolute bottom-20 xl:bottom-20 right-0 w-1/3 z-[100] pointer-events-none justify-center items-center">
+              <div className="pointer-events-auto">
+                <Button
+                  onClick={() => {
+                    const currentDoctor = doctors[activeIndex];
+                    if (currentDoctor) {
+                      openFeedbackModal({ doctor: currentDoctor.acf.full_name });
+                    }
+                  }}
+                  theme="white"
+                  size="2xl"
+                  rounded="full"
+                  className="w-full relative z-[100] cursor-pointer"
+                  isLoading={isLoading}
+                  disabled={isLoading}
+                >
+                  Записаться
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

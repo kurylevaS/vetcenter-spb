@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react'
 import { MainPageInterface } from '@/shared/api/pages/main/types';
 import Image from 'next/image';
 import Button from '@/shared/ui/Button/Button';
+import { useOpenFeedbackModal } from '@/shared/hooks/useOpenFeedbackModal';
 
 
 
 const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block']) => {
   const [activeSlide, setActiveSlide] = useState(0);
-
+  const openFeedbackModal = useOpenFeedbackModal();
   useEffect(() => {
     if (banner_slides && banner_slides.length > 0) {
       setActiveSlide(0);
@@ -76,8 +77,7 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
         </div>
         {slideData.button && (
             <div className="w-full mt-8 lg:hidden">
-              <Button
-                href={slideData.button.link}
+              <Button onClick={() => openFeedbackModal()}
                 theme="green"
                 size="3xl"
                 rounded="full"
@@ -113,7 +113,7 @@ const MainBlockMainPage = ({banner_slides}: MainPageInterface['acf']['main_block
                 {slideData.button && (
                   <div className="pt-2 !mt-32">
                     <Button
-                      href={slideData.button.link}
+                      onClick={() => openFeedbackModal()}
                       theme="green"
                       size="2xl"
                       rounded="full"
