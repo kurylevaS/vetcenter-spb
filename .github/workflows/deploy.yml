@@ -1,0 +1,186 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Позволяет запускать вручную из GitHub UI
+
+env:
+  NODE_VERSION: '20.x'
+
+jobs:
+  # Проверка кода и сборка
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+        continue-on-error: false
+
+      - name: Check formatting
+        run: npm run format
+        continue-on-error: false
+
+      - name: Build project
+        run: npm run build
+        env:
+          NEXT_PUBLIC_FRONT_BASE_URL: ${{ secrets.NEXT_PUBLIC_FRONT_BASE_URL }}
+          NEXT_PUBLIC_FRONT_API_URL: ${{ secrets.NEXT_PUBLIC_FRONT_API_URL }}
+          NEXT_PUBLIC_FRONT_PROXY_API_URL: ${{ secrets.NEXT_PUBLIC_FRONT_PROXY_API_URL }}
+          # Добавьте другие переменные окружения, необходимые для сборки
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-files
+          path: |
+            .next
+            public
+            package.json
+            package-lock.json
+            next.config.js
+            node_modules
+          retention-days: 1
+
+  # Деплой на VPS
+  deploy:
+    name: Deploy to VPS
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
+          path: .
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Create deployment directory
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            mkdir -p /var/www/vetcenter-spb
+            mkdir -p /var/www/vetcenter-spb/releases
+            mkdir -p /var/www/vetcenter-spb/shared
+          EOF
+
+      - name: Create release directory
+        run: |
+          RELEASE_DIR="/var/www/vetcenter-spb/releases/$(date +%Y%m%d%H%M%S)"
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p $RELEASE_DIR && echo $RELEASE_DIR > /var/www/vetcenter-spb/current-release.txt"
+        id: set-release-dir
+
+      - name: Copy files to server
+        run: |
+          RELEASE_DIR=$(ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cat /var/www/vetcenter-spb/current-release.txt")
+          rsync -avz --delete \
+            --exclude '.git' \
+            --exclude 'node_modules' \
+            --exclude '.next' \
+            --exclude '.env*' \
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$RELEASE_DIR/
+
+      - name: Copy build files to server
+        run: |
+          RELEASE_DIR=$(ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "cat /var/www/vetcenter-spb/current-release.txt")
+          rsync -avz \
+            .next/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$RELEASE_DIR/.next/
+          rsync -avz \
+            public/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$RELEASE_DIR/public/
+          rsync -avz \
+            node_modules/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:$RELEASE_DIR/node_modules/
+
+      - name: Deploy on server
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'DEPLOY_SCRIPT'
+            set -e
+            
+            RELEASE_DIR=$(cat /var/www/vetcenter-spb/current-release.txt)
+            APP_DIR="/var/www/vetcenter-spb"
+            
+            echo "🚀 Starting deployment..."
+            echo "Release directory: $RELEASE_DIR"
+            
+            # Переходим в директорию релиза
+            cd $RELEASE_DIR
+            
+            # Проверяем наличие .env файла
+            if [ ! -f "$APP_DIR/shared/.env.production" ]; then
+              echo "⚠️  Warning: .env.production not found in $APP_DIR/shared/"
+              echo "Please create it manually or copy from existing release"
+            else
+              # Копируем .env файл
+              cp $APP_DIR/shared/.env.production $RELEASE_DIR/.env.production
+              echo "✅ Environment file copied"
+            fi
+            
+            # Создаем симлинк на текущий релиз
+            ln -sfn $RELEASE_DIR $APP_DIR/current
+            echo "✅ Symlink created"
+            
+            # Перезапускаем приложение через PM2
+            cd $APP_DIR/current
+            pm2 restart vetcenter-spb || pm2 start ecosystem.config.js
+            echo "✅ Application restarted"
+            
+            # Очищаем старые релизы (оставляем последние 5)
+            cd $APP_DIR/releases
+            ls -t | tail -n +6 | xargs -r rm -rf
+            echo "✅ Old releases cleaned up"
+            
+            echo "🎉 Deployment completed successfully!"
+          DEPLOY_SCRIPT
+
+      - name: Verify deployment
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'VERIFY_SCRIPT'
+            # Проверяем статус PM2
+            pm2 status vetcenter-spb
+            
+            # Проверяем доступность приложения
+            sleep 5
+            if curl -f http://localhost:3000 > /dev/null 2>&1; then
+              echo "✅ Application is running"
+            else
+              echo "❌ Application is not responding"
+              exit 1
+            fi
+          VERIFY_SCRIPT
+
+      - name: Notify deployment status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "✅ Deployment successful!"
+          else
+            echo "❌ Deployment failed!"
+          fi
+
