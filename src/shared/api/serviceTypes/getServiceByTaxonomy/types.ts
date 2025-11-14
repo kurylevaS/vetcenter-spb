@@ -36,6 +36,9 @@ export interface ServiceACF {
   duration: string;
   reviews: Review[];
   service_type?: number[]; // ID терминов таксономии
+  promos?: Array<{
+    promo: false | number; // Может быть false или ID акции
+  }>;
 }
 
 // WordPress Links структура

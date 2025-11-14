@@ -151,10 +151,11 @@ const ServiceMainBlockClient = ({
     <section className="w-full px-6 bg-white pt-6 pb-12 md:pb-16 lg:pb-20 xl:pb-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Кнопка назад и заголовок */}
-        <div className="mb-6 md:mb-12">
+        <div className="mb-6 md:mb-12 flex flex-col gap-4 md:gap-6">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors">
+            className="inline-flex items-center gap-4 md:gap-6 w-fit text-cBlack hover:text-cGreen transition-colors"
+            aria-label="Назад к списку услуг">
             <svg
               width="24"
               height="24"
@@ -170,13 +171,17 @@ const ServiceMainBlockClient = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-[2rem] md:text-[4.2rem] font-bold">
-              {title}
+            <span className="text-[1.6rem] md:text-[2rem] font-semibold">
+              Назад
             </span>
           </button>
+          <h1 className="text-[2.6rem] md:text-[4rem] lg:text-[4.6rem] font-bold text-cBlack leading-tight">
+            {title}
+          </h1>
         </div>
 
         {/* Основной контент: изображение и описание */}
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-12 md:mb-16">
           {/* Изображение услуги */}
           {image && (
@@ -190,9 +195,9 @@ const ServiceMainBlockClient = ({
           {/* Описание услуги */}
           <div className="space-y-6 md:space-y-8 lg:space-y-10">
             <div>
-              <h3 className="text-[2rem] md:text-[2.4rem] font-bold text-cBlack mb-4 md:mb-6">
-                Описание услуги:
-              </h3>
+              <h2 className="text-[2rem] md:text-[2.4rem] font-bold text-cBlack mb-4 md:mb-6">
+                Описание услуги
+              </h2>
               <div
                 className="space-y-4 md:space-y-6 text-[1.6rem] md:text-[1.8rem] lg:text-[2rem] text-cBlack/70 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: description }}

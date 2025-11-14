@@ -29,10 +29,11 @@ const ServiceTypeMainBlockClient = ({
     <section className="w-full px-6 bg-white pt-6  pb-12 md:pb-16 lg:pb-20 xl:pb-24">
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Кнопка назад */}
-        <div className="mb-6 md:mb-12">
+        <div className="mb-6 md:mb-8">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-8 text-cBlack hover:text-cGreen transition-colors">
+            className="inline-flex items-center gap-4 md:gap-6 text-cBlack hover:text-cGreen transition-colors"
+            aria-label="Назад к списку категорий">
             <svg
               width="24"
               height="24"
@@ -48,11 +49,15 @@ const ServiceTypeMainBlockClient = ({
                 strokeLinejoin="round"
               />
             </svg>
-            <span className="text-[2rem] md:text-[3.2rem] font-bold">
-              {title}
+            <span className="text-[1.6rem] md:text-[2rem] font-semibold">
+              Назад
             </span>
           </button>
         </div>
+
+        <h1 className="text-[2.6rem] md:text-[4rem] lg:text-[4.6rem] font-bold text-cBlack leading-tight mb-6 md:mb-10">
+          {title}
+        </h1>
 
         <div className="lg:grid flex flex-col lg:grid-cols-2 md:px-16 w-full gap-8 md:gap-12 lg:gap-16 items-start">
           {/* Галерея */}
@@ -95,6 +100,9 @@ const ServiceTypeMainBlockClient = ({
 
           {/* Заголовок и описание */}
           <div className="space-y-6 md:space-y-8 w-full lg:space-y-10">
+            <h2 className="text-[2rem] md:text-[2.4rem] font-bold text-cBlack">
+              Описание категории
+            </h2>
             <div
               className="space-y-4 w-full md:space-y-6 text-2xl md:text-xl lg:text-2xl text-cBlack/70 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: description }}

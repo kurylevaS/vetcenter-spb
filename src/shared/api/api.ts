@@ -51,7 +51,7 @@ export const API = {
   getServices: `/services?per_page=100&order=asc${postfix}`,
 
   //doctors
-  getDoctors: `/doctors?per_page=100${postfix}`,
+  getDoctors: `/doctors?per_page=100${postfix}&order=asc`,
   getDoctorById: (id: number) => `/doctors/${id}?${postfix.replace('&', '')}`,
 
   //posts
@@ -61,4 +61,9 @@ export const API = {
 
   //blog_categories
   getBlogCategories: `/blog_category?per_page=100${postfix}`,
+
+  //promos
+  getPromos: `/promo?per_page=100${postfix}`,
+  getPromoById: (id: number) => `/promo/${id}?${postfix.replace('&', '')}`,
+  getPromoBySlug: (slug: string) => `/promo?slug=${slug}${postfix}`,
 };

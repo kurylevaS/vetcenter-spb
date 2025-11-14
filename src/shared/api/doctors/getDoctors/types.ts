@@ -33,9 +33,12 @@ export interface DoctorACF {
   education: string; // HTML
   image: string; // URL изображения
   services: Array<{
-    услуга: false | any; // Может быть false или объект услуги
+    service: false | number; // Может быть false или ID услуги
   }>;
   reviews: false | any; // Может быть false или объект отзывов
+  promos?: Array<{
+    promo: false | number; // Может быть false или ID акции
+  }>;
 }
 
 // WordPress Links структура

@@ -40,6 +40,15 @@ npm run dev
 npm run build
 ```
 
+## Деплой
+
+Подробная инструкция по деплою на различные платформы находится в файле [DEPLOYMENT.md](./DEPLOYMENT.md).
+
+**Быстрый старт:**
+- **Vercel** (рекомендуется): подключите репозиторий к Vercel, настройте переменные окружения и деплой произойдет автоматически
+- **VPS**: используйте PM2 для управления процессом (см. инструкцию)
+- **Docker**: используйте готовые `Dockerfile` и `docker-compose.yml`
+
 ## Архитектура проекта
 
 [https://feature-sliced.design/docs/get-started](https://feature-sliced.design/docs/get-started)
@@ -61,3 +70,6 @@ npm run build
 | SENTRY_DSN                      | Sentry DSN можно узнать в настройках проекта Sentry                                                                                  | нет         |
 | SENTRY_PROJECT                  | Название проекта можно узнать в настройках проекта Sentry                                                                            | нет         |
 | SENTRY_AUTH_TOKEN               | Auth token можно создать в настройках организации в Sentry                                                                           | нет         |
+| REVALIDATE_SECRET               | Секретный ключ для on-demand revalidation страниц через webhook. Сгенерируйте сложный случайный ключ (например, через `openssl rand -base64 32`). Используется для мгновенного обновления страниц при изменении контента в WordPress. | да (для production) |
+| TELEGRAM_BOT_TOKEN              | Токен Telegram бота для отправки уведомлений из формы обратной связи                                                                 | нет         |
+| TELEGRAM_CHAT_ID                | ID чата в Telegram для получения уведомлений из формы обратной связи                                                                 | нет         |

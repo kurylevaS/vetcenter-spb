@@ -30,12 +30,11 @@ const BlogListBlockClient = ({
 
   // Отладка входящих данных
   useEffect(() => {
-    console.log('BlogListBlockClient - Initial props:', {
-      postsCount: posts.length,
-      initialSearch,
-      blogCategoriesCount: blogCategories?.length,
-      initialBlogCategory,
-    });
+    return () => {
+      if (debounceTimerRef.current) {
+        clearTimeout(debounceTimerRef.current);
+      }
+    };
   }, []);
 
   // Обновляем состояние при изменении URL параметров
@@ -47,14 +46,6 @@ const BlogListBlockClient = ({
   }, [searchParams]);
 
   // Cleanup для debounce таймера
-  useEffect(() => {
-    return () => {
-      if (debounceTimerRef.current) {
-        clearTimeout(debounceTimerRef.current);
-      }
-    };
-  }, []);
-
   // Функция для обновления URL с debounce
   const updateSearchParam = (value: string) => {
     if (debounceTimerRef.current) {
@@ -90,14 +81,6 @@ const BlogListBlockClient = ({
   // Фильтрация постов по поисковому запросу и категории
   const filteredPosts = useMemo(() => {
     let filtered = posts;
-
-    // Отладка
-    console.log('BlogListBlockClient - posts count:', posts.length);
-    console.log(
-      'BlogListBlockClient - selectedBlogCategory:',
-      selectedBlogCategory
-    );
-    console.log('BlogListBlockClient - searchQuery:', searchQuery);
 
     // Фильтр по категории блога (если выбран)
     if (selectedBlogCategory) {
@@ -145,7 +128,6 @@ const BlogListBlockClient = ({
       });
     }
 
-    console.log('BlogListBlockClient - filteredPosts count:', filtered.length);
     return filtered;
   }, [posts, searchQuery, selectedBlogCategory]);
 
@@ -154,9 +136,9 @@ const BlogListBlockClient = ({
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Заголовок */}
         <div className="mb-8 md:mb-12 lg:mb-16">
-          <h2 className="text-4xl md:text-5xl text-left lg:text-6xl xl:text-7xl font-bold text-cBlack">
+          <h1 className="text-4xl md:text-5xl text-left lg:text-6xl xl:text-7xl font-bold text-cBlack">
             Статьи
-          </h2>
+          </h1>
         </div>
 
         {/* Строка поиска и фильтров */}

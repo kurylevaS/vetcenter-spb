@@ -1,7 +1,22 @@
+import type { Metadata } from 'next';
 import { getContactsPage } from '@/shared/api/pages/contacts';
 import MapBlock from '@/widgets/MapBlock/MapBlock';
 import ContactsInfoBlocks from '@/widgets/ContactsInfoBlocks/ContactsInfoBlocks';
 import ContactsFeedbackBlock from '@/widgets/ContactsFeedbackBlock/ContactsFeedbackBlock';
+import { createMetadata, SEO_DEFAULTS } from '@/shared/lib/seo';
+
+const PAGE_TITLE = 'Контакты ветеринарного центра Приморский';
+const PAGE_DESCRIPTION =
+  'Контактная информация центра «Приморский»: адрес в Санкт-Петербурге, схема проезда, режим работы и телефоны для записи к ветеринару.';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return createMetadata({
+    title: `${PAGE_TITLE} | ${SEO_DEFAULTS.siteName}`,
+    description: PAGE_DESCRIPTION,
+    canonicalPath: '/contacts',
+    type: 'website',
+  });
+}
 
 export default async function ContactsPage() {
   const pageData = await getContactsPage();

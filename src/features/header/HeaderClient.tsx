@@ -42,7 +42,7 @@ const HeaderClient = ({ header }: HeaderClientProps) => {
 
   const menuItems = [
     { label: 'Услуги', href: '/service-types' },
-    { label: 'Врачи', href: '/doctors' },
+    { label: 'Команда', href: '/doctors' },
     { label: 'О клинике', href: '/about' },
     { label: 'Блог', href: '/blog' },
     { label: 'Контакты', href: '/contacts' },

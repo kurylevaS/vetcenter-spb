@@ -1,21 +1,26 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from 'next';
+import { buildAbsoluteUrl } from '@/shared/lib/seo';
 
-const VERCEL_ENV = process.env.VERCEL_ENV;
-
-const vercelRules = {
-  userAgent: '*',
-  disallow: '/',
-};
-
-const productionRules = {
-  userAgent: '*',
-  allow: '/',
-  disallow: '/api/',
-};
+const isPreview =
+  process.env.VERCEL_ENV && process.env.VERCEL_ENV !== 'production';
 
 export default function robots(): MetadataRoute.Robots {
+  const sitemapUrl = buildAbsoluteUrl('/sitemap.xml');
+
+  if (isPreview) {
+    return {
+      rules: [{ userAgent: '*', disallow: '/' }],
+    };
+  }
+
   return {
-    rules: VERCEL_ENV ? vercelRules : productionRules,
-    // sitemap: 'https://acme.com/sitemap.xml',
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/'],
+      },
+    ],
+    sitemap: sitemapUrl,
   };
 }

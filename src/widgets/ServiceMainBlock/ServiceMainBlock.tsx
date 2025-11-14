@@ -10,6 +10,8 @@ const ServiceMainBlock = ({ service }: IServiceMainBlockProps) => {
     return null;
   }
 
+  console.log(service);
+
   return (
     <ServiceMainBlockClient
       title={service.acf.name || service.title.rendered}

@@ -75,7 +75,7 @@ const ServiceTypesListBlockClient = ({
         {/* Заголовок */}
         <div className="mb-8 md:mb-12 lg:mb-16">
           <h1 className="text-4xl md:text-7xl lg:text-6xl xl:text-7xl font-bold text-cBlack">
-            Услуги
+            Категории услуг
           </h1>
         </div>
 

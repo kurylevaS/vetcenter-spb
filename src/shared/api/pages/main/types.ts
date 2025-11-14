@@ -126,6 +126,16 @@ export interface FeedbackBlock {
   button_text: string;
 }
 
+// Promos Block типы
+export interface PromoItem {
+  promo: number;
+}
+
+export interface PromosBlock {
+  title: string;
+  promos: PromoItem[];
+}
+
 // ACF структура главной страницы
 export interface MainPageACF {
   main_block: MainBlock;
@@ -136,6 +146,7 @@ export interface MainPageACF {
   reviews_block: ReviewsBlock;
   blog_block: BlogBlock;
   feedback_block: FeedbackBlock;
+  promos_block?: PromosBlock;
 }
 
 // Основной интерфейс для ответа API

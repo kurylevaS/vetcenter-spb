@@ -6,6 +6,7 @@ import SmoothScroll from '@/shared/ui/SmoothScroll/SmoothScroll';
 import { RemResizeScript } from '@/features/rem-resize';
 import Header from '@/features/header/Header';
 import { Footer } from '@/widgets/Footer/Footer';
+import { buildOrganizationJsonLd, buildWebsiteJsonLd } from '@/shared/lib/seo';
 import FeedbackModal from '@/shared/ui/FeedbackModal/FeedbackModal';
 
 // import 'swiper/css';
@@ -38,6 +39,9 @@ interface RootLayoutProps {
 }
 
 export default function RootLayout({ children, ...rest }: RootLayoutProps) {
+  const organizationJsonLd = JSON.stringify(buildOrganizationJsonLd());
+  const websiteJsonLd = JSON.stringify(buildWebsiteJsonLd());
+
   return (
     <html lang="ru">
       <head>
@@ -49,6 +53,14 @@ export default function RootLayout({ children, ...rest }: RootLayoutProps) {
         />
       </head>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: websiteJsonLd }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: organizationJsonLd }}
+        />
         <ReduxProvider {...rest}>
           <SmoothScroll>
             <Header />

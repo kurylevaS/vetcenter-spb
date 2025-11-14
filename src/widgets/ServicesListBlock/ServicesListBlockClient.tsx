@@ -137,9 +137,9 @@ const ServicesListBlockClient = ({
       <div className="xl:max-w-[1440px] w-full mx-auto px-4 md:px-8 lg:px-16">
         {/* Заголовок */}
         <div className="mb-8 md:mb-12 lg:mb-16">
-          <h2 className="text-4xl md:text-5xl text-left text-center lg:text-6xl xl:text-7xl font-bold text-cBlack">
+          <h1 className="text-4xl md:text-5xl text-left text-center lg:text-6xl xl:text-7xl font-bold text-cBlack">
             Услуги
-          </h2>
+          </h1>
         </div>
 
         {/* Строка поиска и фильтров */}

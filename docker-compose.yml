@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      # API URLs
+      - NEXT_PUBLIC_FRONT_BASE_URL=${NEXT_PUBLIC_FRONT_BASE_URL}
+      - NEXT_PUBLIC_FRONT_API_URL=${NEXT_PUBLIC_FRONT_API_URL}
+      - NEXT_PUBLIC_FRONT_PROXY_API_URL=${NEXT_PUBLIC_FRONT_PROXY_API_URL}
+      # Revalidation
+      - REVALIDATE_SECRET=${REVALIDATE_SECRET}
+      # Sentry
+      - ENABLE_SENTRY=${ENABLE_SENTRY:-0}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - SENTRY_PROJECT=${SENTRY_PROJECT}
+      - SENTRY_AUTH_TOKEN=${SENTRY_AUTH_TOKEN}
+      # Images
+      - UNOPTIMIZED_IMAGES=${UNOPTIMIZED_IMAGES:-0}
+      # Basic Auth
+      - NEXT_PUBLIC_BASIC_AUTH_LOGIN=${NEXT_PUBLIC_BASIC_AUTH_LOGIN}
+      - NEXT_PUBLIC_BASIC_AUTH_PASSWORD=${NEXT_PUBLIC_BASIC_AUTH_PASSWORD}
+      # Telegram
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
