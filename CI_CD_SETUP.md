@@ -142,19 +142,19 @@ sudo certbot --nginx -d your-domain.com -d www.your-domain.com
 
 ### Обязательные секреты:
 
-| Secret Name | Описание | Пример |
-|------------|----------|--------|
-| `VPS_HOST` | IP адрес или домен вашего VPS сервера | `123.45.67.89` или `server.example.com` |
-| `VPS_USER` | Имя пользователя для SSH подключения | `deployer` или `root` |
-| `VPS_SSH_PRIVATE_KEY` | Приватный SSH ключ для подключения к серверу | Содержимое файла `~/.ssh/id_ed25519` |
+| Secret Name           | Описание                                     | Пример                                  |
+| --------------------- | -------------------------------------------- | --------------------------------------- |
+| `VPS_HOST`            | IP адрес или домен вашего VPS сервера        | `123.45.67.89` или `server.example.com` |
+| `VPS_USER`            | Имя пользователя для SSH подключения         | `deployer` или `root`                   |
+| `VPS_SSH_PRIVATE_KEY` | Приватный SSH ключ для подключения к серверу | Содержимое файла `~/.ssh/id_ed25519`    |
 
 ### Переменные для сборки (опционально):
 
-| Secret Name | Описание |
-|------------|----------|
-| `NEXT_PUBLIC_FRONT_BASE_URL` | URL бэкенда (для сборки) |
-| `NEXT_PUBLIC_FRONT_API_URL` | URL REST API бэкенда |
-| `NEXT_PUBLIC_FRONT_PROXY_API_URL` | URL для прокси |
+| Secret Name                       | Описание                 |
+| --------------------------------- | ------------------------ |
+| `NEXT_PUBLIC_FRONT_BASE_URL`      | URL бэкенда (для сборки) |
+| `NEXT_PUBLIC_FRONT_API_URL`       | URL REST API бэкенда     |
+| `NEXT_PUBLIC_FRONT_PROXY_API_URL` | URL для прокси           |
 
 ### Как получить SSH приватный ключ:
 
@@ -185,8 +185,8 @@ Workflow файлы уже созданы в `.github/workflows/`:
 on:
   push:
     branches:
-      - main  # Измените на нужную ветку
-      - production  # Добавьте дополнительные ветки
+      - main # Измените на нужную ветку
+      - production # Добавьте дополнительные ветки
 ```
 
 ## Ручной деплой (без CI/CD)
@@ -284,6 +284,7 @@ pm2 restart vetcenter-spb
 **Причина:** SSH ключ не настроен или не добавлен в GitHub Secrets.
 
 **Решение:**
+
 1. Убедитесь, что публичный ключ добавлен на сервер: `ssh-copy-id user@server`
 2. Проверьте, что приватный ключ правильно добавлен в GitHub Secrets
 3. Убедитесь, что ключ начинается с `-----BEGIN` и заканчивается `-----END`
@@ -293,6 +294,7 @@ pm2 restart vetcenter-spb
 **Причина:** Проблемы с зависимостями или package-lock.json.
 
 **Решение:**
+
 1. Убедитесь, что `package-lock.json` закоммичен в репозиторий
 2. Проверьте версию Node.js на сервере (должна быть >= 20.11.0)
 
@@ -301,6 +303,7 @@ pm2 restart vetcenter-spb
 **Причина:** Приложение не запущено через PM2.
 
 **Решение:**
+
 ```bash
 # На сервере
 cd /var/www/vetcenter-spb/current
@@ -313,6 +316,7 @@ pm2 save
 **Причина:** Приложение не запустилось или упало.
 
 **Решение:**
+
 1. Проверьте логи: `pm2 logs vetcenter-spb`
 2. Проверьте переменные окружения в `.env.production`
 3. Убедитесь, что порт 3000 не занят другим процессом
@@ -322,6 +326,7 @@ pm2 save
 **Причина:** Кэш браузера или CDN.
 
 **Решение:**
+
 1. Очистите кэш браузера
 2. Проверьте, что изменения действительно задеплоены: `pm2 logs vetcenter-spb`
 3. Если используете CDN, очистите кэш CDN
@@ -383,4 +388,3 @@ on:
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [PM2 Documentation](https://pm2.keymetrics.io/docs/)
 - [Next.js Deployment](https://nextjs.org/docs/deployment)
-

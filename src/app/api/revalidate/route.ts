@@ -4,7 +4,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
 /**
  * API Route для on-demand revalidation страниц
  * Используется для мгновенного обновления контента при изменении в WordPress админке
- * 
+ *
  * Настройка webhook в WordPress:
  * 1. Установите плагин "WP Webhooks" или используйте встроенные хуки WordPress REST API
  * 2. Создайте webhook, который будет отправлять POST запрос на этот endpoint при изменении контента
@@ -14,7 +14,7 @@ import { revalidatePath, revalidateTag } from 'next/cache';
  *    - secret: секретный ключ (должен совпадать с REVALIDATE_SECRET в .env)
  *    - path: путь к странице для перегенерации (например, "/promos", "/promos/my-promo-slug")
  *    - type: тип контента ("promo", "service", "doctor", "post", "page")
- * 
+ *
  * Пример запроса:
  * POST /api/revalidate
  * {
@@ -48,10 +48,7 @@ export async function POST(request: NextRequest) {
 
     // Проверяем наличие пути
     if (!path) {
-      return NextResponse.json(
-        { error: 'Путь не указан' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Путь не указан' }, { status: 400 });
     }
 
     // Определяем пути для перегенерации в зависимости от типа контента
@@ -128,4 +125,3 @@ export async function GET() {
     usage: 'Используйте POST метод с секретным ключом для revalidation',
   });
 }
-

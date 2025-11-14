@@ -28,19 +28,32 @@ const DoctorMainBlockClient = ({
   const [isEducationModalOpen, setIsEducationModalOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [isContentTruncated, setIsContentTruncated] = useState(false);
+  const [isMobileContentTruncated, setIsMobileContentTruncated] =
+    useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const mobileContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Проверяем, нужно ли показывать кнопку "Читать полностью"
+  // Проверяем, нужно ли показывать кнопку "Читать полностью" для десктопной версии
   useEffect(() => {
     if (mounted && contentRef.current && education) {
       const element = contentRef.current;
       // Проверяем, превышает ли контент заданную высоту (например, 20rem)
       const maxHeight = 20 * 10; // 20rem в пикселях (1rem = 10px)
       setIsContentTruncated(element.scrollHeight > maxHeight);
+    }
+  }, [mounted, education]);
+
+  // Проверяем, нужно ли показывать кнопку "Читать полностью" для мобильной версии
+  useEffect(() => {
+    if (mounted && mobileContentRef.current && education) {
+      const element = mobileContentRef.current;
+      // Проверяем, превышает ли контент заданную высоту (например, 15rem для мобильной версии)
+      const maxHeight = 15 * 10; // 15rem в пикселях (1rem = 10px)
+      setIsMobileContentTruncated(element.scrollHeight > maxHeight);
     }
   }, [mounted, education]);
 
@@ -214,6 +227,45 @@ const DoctorMainBlockClient = ({
                   </div>
                 </div>
 
+                {education && (
+                  <div className="px-6 md:px-8 pt-6 md:pt-8">
+                    <p className="text-white text-[1.6rem] md:text-[1.8rem] font-bold mb-3 md:mb-4">
+                      О специалисте:
+                    </p>
+                    <div className="relative">
+                      {/* Контент с ограничением высоты */}
+                      <div
+                        ref={mobileContentRef}
+                        className="text-white text-[1.4rem] md:text-[1.6rem] leading-relaxed doctor-education-content max-h-[15rem] overflow-hidden relative">
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: education,
+                          }}
+                        />
+                        {/* Blur эффект на нижнем краю */}
+                        {isMobileContentTruncated && (
+                          <div
+                            className="absolute bottom-0 left-0 right-0 h-[2rem] pointer-events-none"
+                            style={{
+                              background:
+                                'linear-gradient(to top, rgba(130, 168, 29, 1) 0%, rgba(130, 168, 29, 0.9) 30%, rgba(130, 168, 29, 0.5) 60%, transparent 100%)',
+                              backdropFilter: 'blur(8px)',
+                              WebkitBackdropFilter: 'blur(8px)',
+                            }}
+                          />
+                        )}
+                      </div>
+                      {isMobileContentTruncated && (
+                        <button
+                          onClick={() => setIsEducationModalOpen(true)}
+                          className="mt-4 text-white hover:text-white/80 underline font-semibold transition-colors relative z-10">
+                          Читать полностью
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 {/* Фотография снизу */}
                 <div className="relative h-[36rem] flex justify-center w-full">
                   {image && (
@@ -224,6 +276,8 @@ const DoctorMainBlockClient = ({
                     />
                   )}
                 </div>
+
+                {/* Блок "О специалисте" */}
               </div>
 
               {/* Кнопка за блоком */}

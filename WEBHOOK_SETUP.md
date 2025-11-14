@@ -16,6 +16,7 @@ REVALIDATE_SECRET=your-super-secret-key-here-change-this
 ```
 
 **Важно:** Используйте сложный случайный ключ для безопасности. Например, можно сгенерировать его командой:
+
 ```bash
 openssl rand -base64 32
 ```
@@ -27,12 +28,14 @@ openssl rand -base64 32
 1. Установите плагин [WP Webhooks](https://wordpress.org/plugins/wp-webhooks/)
 2. Перейдите в **WP Webhooks → Send Data**
 3. Создайте новый webhook:
+
    - **Webhook Name**: "Next.js Revalidation"
    - **Webhook URL**: `https://your-domain.com/api/revalidate`
    - **Request Method**: `POST`
    - **Request Content Type**: `application/json`
 
 4. В разделе **Data Mapping** добавьте следующие поля:
+
    ```json
    {
      "secret": "your-super-secret-key-here-change-this",
@@ -66,7 +69,7 @@ function trigger_nextjs_revalidation($post_id, $post) {
     // Определяем тип контента и путь
     $post_type = get_post_type($post_id);
     $post_slug = $post->post_name;
-    
+
     $type_map = [
         'promo' => 'promo',
         'service' => 'service',
@@ -74,12 +77,12 @@ function trigger_nextjs_revalidation($post_id, $post) {
         'blog_post' => 'post',
         'page' => 'page',
     ];
-    
+
     $type = $type_map[$post_type] ?? null;
     if (!$type) {
         return;
     }
-    
+
     // Формируем путь в зависимости от типа
     $path_map = [
         'promo' => "/promos/{$post_slug}",
@@ -88,16 +91,16 @@ function trigger_nextjs_revalidation($post_id, $post) {
         'post' => "/blog/{$post_slug}",
         'page' => $post_slug === 'main' ? '/' : "/{$post_slug}",
     ];
-    
+
     $path = $path_map[$type] ?? null;
     if (!$path) {
         return;
     }
-    
+
     // URL вашего Next.js приложения
     $nextjs_url = 'https://your-domain.com/api/revalidate';
     $secret = 'your-super-secret-key-here-change-this';
-    
+
     // Отправляем запрос на revalidation
     wp_remote_post($nextjs_url, [
         'method' => 'POST',
@@ -130,6 +133,7 @@ add_action('before_delete_post', function($post_id) {
 ```
 
 **Не забудьте заменить:**
+
 - `https://your-domain.com` на URL вашего Next.js приложения
 - `your-super-secret-key-here-change-this` на тот же секретный ключ, что в `.env.local`
 
@@ -170,6 +174,7 @@ add_action('before_delete_post', function($post_id) {
 ### Примеры запросов:
 
 **Акция:**
+
 ```json
 {
   "secret": "your-secret-key",
@@ -179,6 +184,7 @@ add_action('before_delete_post', function($post_id) {
 ```
 
 **Услуга:**
+
 ```json
 {
   "secret": "your-secret-key",
@@ -188,6 +194,7 @@ add_action('before_delete_post', function($post_id) {
 ```
 
 **Врач:**
+
 ```json
 {
   "secret": "your-secret-key",
@@ -197,6 +204,7 @@ add_action('before_delete_post', function($post_id) {
 ```
 
 **Статья блога:**
+
 ```json
 {
   "secret": "your-secret-key",
@@ -206,6 +214,7 @@ add_action('before_delete_post', function($post_id) {
 ```
 
 **Главная страница:**
+
 ```json
 {
   "secret": "your-secret-key",
@@ -217,12 +226,15 @@ add_action('before_delete_post', function($post_id) {
 ## Проверка работоспособности
 
 1. Проверьте, что API доступен:
+
    ```bash
    curl https://your-domain.com/api/revalidate
    ```
+
    Должен вернуться JSON с сообщением о том, что API активен.
 
 2. Протестируйте revalidation:
+
    ```bash
    curl -X POST https://your-domain.com/api/revalidate \
      -H "Content-Type: application/json" \
@@ -256,6 +268,7 @@ add_action('before_delete_post', function($post_id) {
 ## Безопасность
 
 ⚠️ **Важно:**
+
 - Никогда не коммитьте `REVALIDATE_SECRET` в git
 - Используйте сложный случайный ключ
 - Ограничьте доступ к endpoint через firewall/Vercel Edge Config если возможно
@@ -279,4 +292,3 @@ add_action('before_delete_post', function($post_id) {
 - Проверьте логи сервера
 - Убедитесь, что путь указан правильно
 - Проверьте, что Next.js приложение запущено
-

@@ -3,12 +3,14 @@
 ## Самый простой способ: Vercel (5 минут)
 
 1. **Подключите репозиторий:**
+
    - Зайдите на [vercel.com](https://vercel.com)
    - Войдите через GitHub/GitLab/Bitbucket
    - Нажмите "New Project" → выберите ваш репозиторий
 
 2. **Настройте переменные окружения:**
    В настройках проекта → Environment Variables добавьте:
+
    ```
    NEXT_PUBLIC_FRONT_BASE_URL=https://your-backend.com
    NEXT_PUBLIC_FRONT_API_URL=https://your-backend.com/api
@@ -27,6 +29,7 @@
 1. **Создайте `.env.production` файл** с переменными окружения
 
 2. **Соберите и запустите:**
+
    ```bash
    docker-compose up -d
    ```
@@ -37,9 +40,9 @@
 ## Что дальше?
 
 После деплоя:
+
 1. ✅ Настройте webhook в WordPress (см. `WEBHOOK_SETUP.md`)
 2. ✅ Проверьте работу сайта
 3. ✅ Настройте домен (если нужно)
 
 Подробные инструкции: см. [DEPLOYMENT.md](./DEPLOYMENT.md)
-
