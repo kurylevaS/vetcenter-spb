@@ -46,7 +46,7 @@ export const API = {
     `/service_types?slug=${slug}${postfix}`,
 
   getServiceByServiceType: (serviceTypeId: number) =>
-    `/services?service-type=${serviceTypeId}&order=asc${postfix}`,
+    `/services?service-type=${serviceTypeId}&order=asc${postfix}&per_page=100`,
   getServiceBySlug: (slug: string) => `/services?slug=${slug}${postfix}`,
   getServices: `/services?per_page=100&order=asc${postfix}`,
 
