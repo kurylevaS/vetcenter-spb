@@ -14,10 +14,10 @@ import axios from 'axios';
  *    или через Authorization header: GET /api/revalidate/check с заголовком Authorization: Bearer your-secret-key
  * 
  * Пример настройки cron на VPS (каждые 5 минут):
- * */5 * * * * curl -s -H "Authorization: Bearer your-secret-key" https://your-domain.com/api/revalidate/check > /dev/null 2>&1
+ * 0,5,10,15,20,25,30,35,40,45,50,55 * * * * curl -s -H "Authorization: Bearer your-secret-key" https://your-domain.com/api/revalidate/check > /dev/null 2>&1
  * 
  * Или через query параметр:
- * */5 * * * * curl -s "https://your-domain.com/api/revalidate/check?secret=your-secret-key" > /dev/null 2>&1
+ * 0,5,10,15,20,25,30,35,40,45,50,55 * * * * curl -s "https://your-domain.com/api/revalidate/check?secret=your-secret-key" > /dev/null 2>&1
  */
 
 interface WordPressPost {
