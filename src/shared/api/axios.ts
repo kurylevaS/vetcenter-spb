@@ -10,12 +10,14 @@ export const axiosInstance = axios.create({
   headers: baseAxiosHeaders,
   withCredentials: true,
   baseURL: typeof window === 'undefined' ? API_URL : PROXY_API_URL,
+  timeout: 30000, // 30 секунд таймаут для запросов
 });
 
 export const axiosContent = axios.create({
   headers: baseAxiosHeaders,
   withCredentials: true,
   baseURL: typeof window === 'undefined' ? API_URL : CONTENT_PROXY_API_URL,
+  timeout: 30000, // 30 секунд таймаут для запросов
 });
 
 const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
