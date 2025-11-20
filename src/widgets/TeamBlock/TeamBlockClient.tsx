@@ -241,7 +241,7 @@ const TeamBlockClient = ({ title, doctors }: ITeamBlockClientProps) => {
               )}
             </div>
 
-            {/* Кнопка вне Swiper для десктопной версии */}
+            
             <div className="hidden lg:flex absolute bottom-20 xl:bottom-20 right-[7rem] w-1/5 z-[100] pointer-events-none justify-center items-center">
               <div className="pointer-events-auto w-full">
                 {doctors[activeIndex] && (
