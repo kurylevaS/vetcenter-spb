@@ -329,6 +329,7 @@ const FeedbackModal = () => {
                 theme="white"
                 size="2xl"
                 rounded="full"
+                disabled={formik.isSubmitting}
                 onClick={() => dispatch(feedbackModalActions.closeModal())}
                 className="flex-1 border-2 border-cGreen/30">
                 Отмена

@@ -165,6 +165,7 @@ const FeedbackForm = ({
             size="3xl"
             rounded="full"
             disabled={formik.isSubmitting}
+            isLoading={formik.isSubmitting}
             className="w-full lg:w-96 px-8 md:px-12 lg:px-16 bg-white !text-cGreen lg:!bg-cGreen lg:!text-white">
             {buttonText}
           </Button>
